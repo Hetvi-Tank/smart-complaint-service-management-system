@@ -1,0 +1,17 @@
+<h2>My Complaints</h2>
+
+<div *ngIf="complaints.length === 0">
+  <p>No complaints found.</p>
+</div>
+
+<div *ngFor="let complaint of complaints" class="complaint-card">
+
+  <h3>{{ complaint.title }}</h3>
+
+  <p>{{ complaint.description }}</p>
+
+  <p><strong>ID:</strong> {{ complaint.id }}</p>
+
+  <hr>
+
+</div>

@@ -1,0 +1,24 @@
+<h2>Create Complaint</h2>
+
+<form (ngSubmit)="submitComplaint()">
+
+  <input type="text"
+         [(ngModel)]="complaint.title"
+         name="title"
+         placeholder="Complaint Title"
+         required>
+
+  <br><br>
+
+  <textarea
+    [(ngModel)]="complaint.description"
+    name="description"
+    placeholder="Description"
+    required>
+  </textarea>
+
+  <br><br>
+
+  <button type="submit">Submit</button>
+
+</form>
