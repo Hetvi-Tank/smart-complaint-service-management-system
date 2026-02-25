@@ -1,0 +1,42 @@
+.register-page {
+  min-height: 100vh;
+  background: linear-gradient(to right, #7c3aed, #2563eb);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.register-box {
+  background: white;
+  padding: 35px;
+  width: 420px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+.register-box h2 {
+  text-align: center;
+  color: #1d4ed8;
+  margin-bottom: 20px;
+}
+
+.register-box input {
+  width: 100%;
+  padding: 11px;
+  margin-bottom: 12px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.register-box button {
+  width: 100%;
+  padding: 12px;
+  background: #1d4ed8;
+  color: white;
+  border: none;
+  border-radius: 6px;
+}
+
+.register-box button:hover {
+  background: #1e40af;
+}

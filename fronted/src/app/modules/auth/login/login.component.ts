@@ -1,35 +1,48 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule],   // 👈 VERY IMPORTANT
+  imports: [CommonModule, FormsModule],
   templateUrl: './login.component.html',
-  styleUrl:'./login.component.css'
+   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
 
-  email: string = '';
-  password: string = '';
+  form: any = {};
+  message = '';
 
-  constructor(private router: Router) {}
+  constructor(
+    private auth: AuthService,
+    private router: Router
+  ) {}
 
-  onLogin() {
+  login() {
 
-  let role = '';
+    this.auth.login(this.form).subscribe({
 
-  if (this.email === 'admin@gmail.com') {
-    role = 'admin';
-  } else if (this.email === 'agent@gmail.com') {
-    role = 'agent';
-  } else {
-    role = 'user';
+      next: (res: any) => {
+
+        // Save token + role
+        this.auth.saveUser(res);
+
+        // Redirect user
+        if (res.role === 'user') {
+          this.router.navigate(['/user/dashboard']);
+        }
+
+      },
+
+      error: (err: any) => {
+        this.message = err.error?.msg || 'Login Failed';
+      }
+
+    });
+
   }
-
-  localStorage.setItem('role', role);
-
-  this.router.navigate(['/' + role]);
-}
 }

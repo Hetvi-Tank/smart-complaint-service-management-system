@@ -1,17 +1,32 @@
 import { Routes } from '@angular/router';
+import { LoginComponent } from './modules/auth/login/login.component';
+import { RegisterComponent } from './modules/auth/register/register.component';
+import { UserDashboardComponent } from './modules/user/user-dashboard/user-dashboard.component';
 import { authGuard } from './core/guards/auth.guard';
 import { roleGuard } from './core/guards/role.guard';
 
 
 export const routes: Routes = [
 
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
 
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  {
+    path: 'user/dashboard',
+    component: UserDashboardComponent
+  },
   {
     path: 'login',
     loadComponent: () =>
       import('./modules/auth/login/login.component')
         .then(m => m.LoginComponent)
+  },
+  {
+    path: 'register',
+    loadComponent: () =>
+      import('./modules/auth/register/register.component')
+        .then(m => m.RegisterComponent)
   },
 
   {
