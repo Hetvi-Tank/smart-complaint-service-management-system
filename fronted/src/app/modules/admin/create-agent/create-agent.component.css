@@ -1,0 +1,86 @@
+/* Full background */
+.page-wrapper {
+  min-height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  padding: 20px;
+}
+
+/* Glass card */
+.glass-card {
+  width: 100%;
+  max-width: 400px;
+  padding: 35px;
+  border-radius: 15px;
+  backdrop-filter: blur(15px);
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+  color: white;
+  text-align: center;
+}
+
+/* Heading */
+.glass-card h2 {
+  margin-bottom: 25px;
+}
+
+/* Input group */
+.input-group {
+  margin-bottom: 18px;
+}
+
+/* Input */
+input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  background: rgba(255, 255, 255, 0.25);
+  color: white;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+input::placeholder {
+  color: #f3f4f6;
+}
+
+input:focus {
+  background: rgba(255, 255, 255, 0.35);
+  box-shadow: 0 0 0 2px white;
+}
+
+/* Button */
+button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  border-radius: 8px;
+  border: none;
+  background: white;
+  color: #5a67d8;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: #f3f4f6;
+}
+
+/* Messages */
+.success {
+  margin-top: 15px;
+  color: #bbf7d0;
+  font-weight: 500;
+}
+
+.error {
+  margin-top: 15px;
+  color: #fecaca;
+  font-weight: 500;
+}

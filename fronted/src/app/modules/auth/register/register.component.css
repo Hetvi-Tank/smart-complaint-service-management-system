@@ -1,42 +1,89 @@
-.register-page {
+.auth-wrapper {
   min-height: 100vh;
-  background: linear-gradient(to right, #7c3aed, #2563eb);
   display: flex;
   justify-content: center;
   align-items: center;
+  background: linear-gradient(135deg, #43cea2, #185a9d);
+  padding: 20px;
 }
 
-.register-box {
-  background: white;
+.auth-card {
+  background: #ffffff;
+  width: 450px;
   padding: 35px;
-  width: 420px;
-  border-radius: 12px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+  border-radius: 14px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
 }
 
-.register-box h2 {
+.auth-card h2 {
   text-align: center;
-  color: #1d4ed8;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
+  color: #185a9d;
+  font-weight: 600;
 }
 
-.register-box input {
+.form-group {
+  margin-bottom: 14px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 14px;
+  color: #444;
+}
+
+input {
   width: 100%;
-  padding: 11px;
-  margin-bottom: 12px;
-  border-radius: 5px;
+  padding: 10px 12px;
+  border-radius: 8px;
   border: 1px solid #ccc;
+  font-size: 14px;
+  transition: 0.3s ease;
 }
 
-.register-box button {
+input:focus {
+  border-color: #185a9d;
+  outline: none;
+  box-shadow: 0 0 5px rgba(24, 90, 157, 0.4);
+}
+
+.btn-primary {
   width: 100%;
   padding: 12px;
-  background: #1d4ed8;
-  color: white;
+  margin-top: 15px;
+  background: #185a9d;
   border: none;
-  border-radius: 6px;
+  color: white;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s ease;
 }
 
-.register-box button:hover {
-  background: #1e40af;
+.btn-primary:hover {
+  background: #0f3f6f;
+}
+
+.switch-text {
+  text-align: center;
+  margin-top: 18px;
+  font-size: 14px;
+}
+
+.switch-text a {
+  color: #185a9d;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.switch-text a:hover {
+  text-decoration: underline;
+}
+
+.message {
+  text-align: center;
+  margin-top: 10px;
+  color: red;
+  font-size: 14px;
 }

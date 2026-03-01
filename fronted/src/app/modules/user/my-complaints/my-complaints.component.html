@@ -1,17 +1,29 @@
-<h2>My Complaints</h2>
+<div class="my-page">
 
-<div *ngIf="complaints.length === 0">
-  <p>No complaints found.</p>
-</div>
+  <div class="my-box">
 
-<div *ngFor="let complaint of complaints" class="complaint-card">
+    <h2>My Complaints</h2>
 
-  <h3>{{ complaint.title }}</h3>
+    <table>
 
-  <p>{{ complaint.description }}</p>
+      <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Status</th>
+      </tr>
 
-  <p><strong>ID:</strong> {{ complaint.id }}</p>
+      <tr *ngFor="let c of complaints">
+        <td>{{c.title}}</td>
+        <td>{{c.description}}</td>
+        <td>{{c.status}}</td>
+      </tr>
 
-  <hr>
+    </table>
+
+    <button routerLink="/user/dashboard">
+      Back
+    </button>
+
+  </div>
 
 </div>

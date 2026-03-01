@@ -1,0 +1,28 @@
+<div class="wrapper">
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="logo-box">
+      <!-- Temporary Logo -->
+      <img src="https://cdn-icons-png.flaticon.com/512/1995/1995470.png" alt="Logo">
+      <h2>Admin Panel</h2>
+    </div>
+
+    <nav>
+      <a routerLink="dashboard">Dashboard</a>
+      <a routerLink="create-agent">Create Agent</a>
+      <a routerLink="/login" class="logout">Logout</a>
+    </nav>
+  </header>
+
+  <!-- PAGE CONTENT -->
+  <div class="main-content">
+    <router-outlet></router-outlet>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    © 2026 Complaint Management System | Admin
+  </footer>
+
+</div>

@@ -1,0 +1,24 @@
+<div class="wrapper">
+
+  <header class="header">
+  <div class="logo-box">
+    <img src="assets/logo.jpeg" alt="Logo" class="logo-img">
+    <span class="panel-title">User Panel</span>
+  </div>
+
+  <nav>
+    <a routerLink="dashboard">Dashboard</a>
+    <a routerLink="add">Add Complaint</a>
+    <a routerLink="/login" class="logout">Logout</a>
+  </nav>
+</header>
+
+  <div class="main-content">
+    <router-outlet></router-outlet>
+  </div>
+
+  <footer class="footer">
+    © 2026 Complaint Management System | User
+  </footer>
+
+</div>

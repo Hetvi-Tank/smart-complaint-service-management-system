@@ -1,0 +1,77 @@
+<div class="page-wrapper">
+
+  <div class="glass-card">
+
+    <h2>Add Complaint</h2>
+
+    <form (ngSubmit)="submit()">
+
+      <input type="text"
+             placeholder="Complaint Title"
+             [(ngModel)]="title"
+             name="title"
+             required>
+
+      <textarea placeholder="Description"
+                [(ngModel)]="description"
+                name="description"
+                required></textarea>
+
+      <select [(ngModel)]="category"
+              name="category"
+              required>
+        <option value="">Select Category</option>
+        <option *ngFor="let cat of categories" [value]="cat">
+          {{cat}}
+        </option>
+      </select>
+
+      <!-- Priority Radio Buttons -->
+      <div class="priority-group">
+
+  <label class="priority-label">Priority</label>
+
+  <div class="priority-options">
+
+    <input type="radio" id="low" name="priority" value="Low" [(ngModel)]="priority">
+    <label for="low" class="low">Low</label>
+
+    <input type="radio" id="medium" name="priority" value="Medium" [(ngModel)]="priority">
+    <label for="medium" class="medium">Medium</label>
+
+    <input type="radio" id="high" name="priority" value="High" [(ngModel)]="priority">
+    <label for="high" class="high">High</label>
+
+  </div>
+
+</div>
+
+      <input type="text"
+             placeholder="Address"
+             [(ngModel)]="address"
+             name="address"
+             required>
+
+      <input type="text"
+             placeholder="Area"
+             [(ngModel)]="area"
+             name="area"
+             required>
+
+      <input type="text"
+             placeholder="City"
+             [(ngModel)]="city"
+             name="city"
+             required>
+
+      <input type="file" (change)="onFileChange($event)">
+
+      <button type="submit">Submit Complaint</button>
+
+      <p class="message">{{message}}</p>
+
+    </form>
+
+  </div>
+
+</div>

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ManageAgentsComponent } from './manage-agents.component';
+import { AddComplaintComponent } from './add-complaint.component';
 
-describe('ManageAgentsComponent', () => {
-  let component: ManageAgentsComponent;
-  let fixture: ComponentFixture<ManageAgentsComponent>;
+describe('AddComplaintComponent', () => {
+  let component: AddComplaintComponent;
+  let fixture: ComponentFixture<AddComplaintComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ManageAgentsComponent]
+      imports: [AddComplaintComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(ManageAgentsComponent);
+    fixture = TestBed.createComponent(AddComplaintComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

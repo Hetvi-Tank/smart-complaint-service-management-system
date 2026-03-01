@@ -1,23 +1,24 @@
 const express = require('express');
-const dotenv = require('dotenv');
+const mongoose = require('mongoose');
 const cors = require('cors');
+require('dotenv').config();
 
-dotenv.config();
-
-const connectDB = require('./src/config/db');
-
-connectDB();
+const authRoutes = require('./src/routes/authRoutes');
+const complaintRoutes = require('./src/routes/complaintRoutes');
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use('/uploads', express.static('uploads'));
 
-// Routes
-app.use('/api/auth', require('./src/routes/authRoutes'));
+app.use('/api/auth', authRoutes);
+app.use('/api/complaints', complaintRoutes);
 
-const PORT = process.env.PORT || 5000;
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log("MongoDB Connected"))
+  .catch(err => console.log("Mongo Error:", err));
 
-app.listen(PORT, () => {
-  console.log('Server running on port ' + PORT);
+app.listen(5000, () => {
+  console.log("Server running on port 5000");
 });

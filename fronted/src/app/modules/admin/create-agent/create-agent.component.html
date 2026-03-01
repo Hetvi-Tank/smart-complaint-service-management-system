@@ -1,0 +1,55 @@
+<div class="page-wrapper">
+
+  <div class="glass-card">
+
+    <h2>Create Agent</h2>
+
+    <form (ngSubmit)="createAgent()" #formRef="ngForm">
+
+      <div class="input-group">
+        <input type="text"
+               name="name"
+               placeholder="Full Name"
+               [(ngModel)]="agent.name"
+               required>
+      </div>
+
+      <div class="input-group">
+        <input type="email"
+               name="email"
+               placeholder="Email Address"
+               [(ngModel)]="agent.email"
+               required>
+      </div>
+
+      <div class="input-group">
+        <input type="text"
+               name="phone"
+               placeholder="Phone Number"
+               [(ngModel)]="agent.phone"
+               required>
+      </div>
+
+      <div class="input-group">
+        <input type="password"
+               name="password"
+               placeholder="Password"
+               [(ngModel)]="agent.password"
+               required>
+      </div>
+
+      <button type="submit">Create Agent</button>
+
+      <p class="success" *ngIf="successMessage">
+        {{ successMessage }}
+      </p>
+
+      <p class="error" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </p>
+
+    </form>
+
+  </div>
+
+</div>

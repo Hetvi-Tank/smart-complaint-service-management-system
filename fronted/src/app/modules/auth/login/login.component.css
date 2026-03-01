@@ -1,54 +1,77 @@
-.login-page {
-  min-height: 100vh;
-  background: linear-gradient(to right, #2563eb, #4f46e5);
+.auth-wrapper {
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  background: linear-gradient(135deg, #667eea, #764ba2);
 }
 
-.login-box {
-  background: white;
-  padding: 35px;
-  width: 380px;
+.auth-card {
+  background: #ffffff;
+  padding: 40px;
+  width: 400px;
   border-radius: 12px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.2);
 }
 
-.login-box h2 {
+.auth-card h2 {
   text-align: center;
-  color: #1e40af;
   margin-bottom: 25px;
+  color: #333;
 }
 
-.login-box input {
+.form-group {
+  margin-bottom: 18px;
+}
+
+label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 14px;
+  color: #555;
+}
+
+input {
   width: 100%;
   padding: 12px;
-  margin-bottom: 15px;
+  border-radius: 8px;
   border: 1px solid #ccc;
-  border-radius: 6px;
+  font-size: 14px;
 }
 
-.login-box input:focus {
-  border-color: #2563eb;
+input:focus {
+  border-color: #667eea;
   outline: none;
+  box-shadow: 0 0 5px rgba(102,126,234,0.4);
 }
 
-.login-box button {
+.btn-primary {
   width: 100%;
   padding: 12px;
-  background: #2563eb;
-  color: white;
+  background: #667eea;
   border: none;
-  border-radius: 6px;
+  color: white;
+  border-radius: 8px;
+  font-size: 16px;
   cursor: pointer;
+  transition: 0.3s;
 }
 
-.login-box button:hover {
-  background: #1e3a8a;
+.btn-primary:hover {
+  background: #5563c1;
 }
 
-.login-msg {
+.switch-text {
   text-align: center;
-  color: red;
-  margin-top: 10px;
+  margin-top: 20px;
+}
+
+.switch-text a {
+  color: #667eea;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.switch-text a:hover {
+  text-decoration: underline;
 }

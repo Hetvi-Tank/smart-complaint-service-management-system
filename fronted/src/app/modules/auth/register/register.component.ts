@@ -1,41 +1,45 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
-
-import { AuthService } from '../../../core/services/auth.service';
+import { RouterModule, Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-register',
-  standalone: true,   // ✅ IMPORTANT
-  imports: [CommonModule, FormsModule],  // ✅ IMPORTANT
+  standalone: true,
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './register.component.html',
-   styleUrls: ['./register.component.css']
+  styleUrls: ['./register.component.css']
 })
 export class RegisterComponent {
 
-  form: any = {};
-  message = '';
+  form = {
+    name: '',
+    email: '',
+    phone: '',
+    password: '',
+    address: '',
+    area: '',
+    city: ''
+  };
 
-  constructor(
-    private auth: AuthService,
-    private router: Router
-  ) {}
+  message: string = '';
+
+  constructor(private http: HttpClient, private router: Router) {}
 
   register() {
 
-    this.auth.register(this.form).subscribe({
-
-      next: (res: any) => {
-        this.message = 'Registration Successful';
-        this.router.navigate(['/login']);
-      },
-
-      error: (err: any) => {
-        this.message = err.error?.msg || 'Error Occurred';
-      }
-
-    });
+    this.http.post<any>('http://localhost:5000/api/auth/register', this.form)
+      .subscribe({
+        next: () => {
+          alert("Registered Successfully");
+          this.router.navigate(['/login']);
+        },
+        error: (err) => {
+          this.message = err.error?.message || "Registration failed";
+        }
+      });
 
   }
+
 }

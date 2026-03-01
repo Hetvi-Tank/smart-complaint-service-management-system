@@ -1,23 +1,30 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
-import { MyComplaintsComponent } from './my-complaints.component';
+@Component({
+  selector: 'app-my-complaints',
+  standalone: true,
+  imports: [CommonModule],
+  templateUrl: './my-complaints.component.html',
+  styleUrls: ['./my-complaints.component.css']
+})
+export class MyComplaintsComponent {
 
-describe('MyComplaintsComponent', () => {
-  let component: MyComplaintsComponent;
-  let fixture: ComponentFixture<MyComplaintsComponent>;
+  complaints: any[] = [];
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [MyComplaintsComponent]
-    })
-    .compileComponents();
-    
-    fixture = TestBed.createComponent(MyComplaintsComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+  constructor(private http: HttpClient) {}
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+  ngOnInit() {
+
+    const userId = localStorage.getItem('userId');
+
+    this.http.get<any[]>(
+      'http://localhost:5000/api/complaints/user/' + userId
+    ).subscribe(data => {
+      this.complaints = data;
+    });
+
+  }
+}

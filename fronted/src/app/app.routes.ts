@@ -1,21 +1,10 @@
 import { Routes } from '@angular/router';
-import { LoginComponent } from './modules/auth/login/login.component';
-import { RegisterComponent } from './modules/auth/register/register.component';
-import { UserDashboardComponent } from './modules/user/user-dashboard/user-dashboard.component';
-import { authGuard } from './core/guards/auth.guard';
-import { roleGuard } from './core/guards/role.guard';
-
 
 export const routes: Routes = [
 
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
-
   { path: '', redirectTo: 'login', pathMatch: 'full' },
-  {
-    path: 'user/dashboard',
-    component: UserDashboardComponent
-  },
+
+  // ================= AUTH =================
   {
     path: 'login',
     loadComponent: () =>
@@ -29,29 +18,72 @@ export const routes: Routes = [
         .then(m => m.RegisterComponent)
   },
 
+  // ================= ADMIN =================
   {
-  path: 'admin',
-  loadChildren: () =>
-    import('./modules/admin/admin.module')
-      .then(m => m.AdminModule),
-  canActivate: [authGuard, roleGuard],
-  data: { role: 'admin' }
-},
-
-  {
-    path: 'agent',
-    loadChildren: () =>
-      import('./modules/agent/agent.module')
-        .then(m => m.AgentModule),
-        data: { role: 'agent' }
+    path: 'admin',
+    loadComponent: () =>
+      import('./layouts/admin-layout/admin-layout.component')
+        .then(m => m.AdminLayoutComponent),
+    children: [
+      {
+        path: 'dashboard',
+        loadComponent: () =>
+          import('./modules/admin/admin-dashboard/admin-dashboard.component')
+            .then(m => m.AdminDashboardComponent)
+      },
+      {
+        path: 'create-agent',
+        loadComponent: () =>
+          import('./modules/admin/create-agent/create-agent.component')
+            .then(m => m.CreateAgentComponent)
+      }
+    ]
   },
 
+  // ================= AGENT =================
+  {
+    path: 'agent',
+    loadComponent: () =>
+      import('./layouts/agent-layout/agent-layout.component')
+        .then(m => m.AgentLayoutComponent),
+    children: [
+      {
+        path: 'dashboard',
+        loadComponent: () =>
+          import('./modules/agent/agent-dashboard/agent-dashboard.component')
+            .then(m => m.AgentDashboardComponent)
+      },
+      {
+        path: 'assigned',
+        loadComponent: () =>
+          import('./modules/agent/assigned-complaints/assigned-complaints.component')
+            .then(m => m.AssignedComplaintsComponent)
+      }
+    ]
+  },
+
+  // ================= USER =================
   {
     path: 'user',
-    loadChildren: () =>
-      import('./modules/user/user.module')
-        .then(m => m.UserModule),
-         data: { role: 'user' }
-  }
+    loadComponent: () =>
+      import('./layouts/user-layout/user-layout.component')
+        .then(m => m.UserLayoutComponent),
+    children: [
+      {
+        path: 'dashboard',
+        loadComponent: () =>
+          import('./modules/user/user-dashboard/user-dashboard.component')
+            .then(m => m.UserDashboardComponent)
+      },
+      {
+        path: 'add',
+        loadComponent: () =>
+          import('./modules/user/add-complaint/add-complaint.component')
+            .then(m => m.AddComplaintComponent)
+      }
+    ]
+  },
+
+  { path: '**', redirectTo: 'login' }
 
 ];

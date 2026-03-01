@@ -1,23 +1,76 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 
-import { AssignedComplaintsComponent } from './assigned-complaints.component';
+@Component({
+  selector: 'app-assigned-complaints',
+  standalone: true,
+  imports: [CommonModule],
+  template: `
+    <div style="padding:20px">
 
-describe('AssignedComplaintsComponent', () => {
-  let component: AssignedComplaintsComponent;
-  let fixture: ComponentFixture<AssignedComplaintsComponent>;
+      <h2>Assigned Complaints</h2>
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [AssignedComplaintsComponent]
-    })
-    .compileComponents();
-    
-    fixture = TestBed.createComponent(AssignedComplaintsComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+      <table border="1" width="100%">
+        <tr>
+          <th>User</th>
+          <th>Title</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+        <tr *ngFor="let c of complaints">
+          <td>{{ c.user?.name }}</td>
+          <td>{{ c.title }}</td>
+          <td>{{ c.status }}</td>
+          <td>
+            <button (click)="updateStatus(c._id, 'In Progress')">
+              In Progress
+            </button>
+
+            <button (click)="updateStatus(c._id, 'Completed')">
+              Completed
+            </button>
+          </td>
+        </tr>
+      </table>
+
+    </div>
+  `
+})
+export class AssignedComplaintsComponent implements OnInit {
+
+  complaints: any[] = [];
+
+  constructor(private http: HttpClient) {}
+
+  ngOnInit(): void {
+    this.loadComplaints();
+  }
+
+  loadComplaints(): void {
+
+    const token = localStorage.getItem('token');
+
+    this.http.get<any[]>(
+      'http://localhost:5000/api/complaints/agent',
+      { headers: { Authorization: `Bearer ${token}` } }
+    ).subscribe(res => {
+      this.complaints = res;
+    });
+  }
+
+  updateStatus(id: string, status: string): void {
+
+    const token = localStorage.getItem('token');
+
+    this.http.put(
+      `http://localhost:5000/api/complaints/update-status/${id}`,
+      { status },
+      { headers: { Authorization: `Bearer ${token}` } }
+    ).subscribe(() => {
+      this.loadComplaints();
+    });
+  }
+
+}
