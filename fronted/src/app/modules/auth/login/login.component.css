@@ -64,6 +64,10 @@ input:focus {
 .switch-text {
   text-align: center;
   margin-top: 20px;
+  padding: 12px;
+  background-color: #f3f4ff;   /* light background */
+  border: 1px solid #667eea;   /* border color */
+  border-radius: 8px;
 }
 
 .switch-text a {

@@ -45,93 +45,14 @@ import { HttpClient } from '@angular/common/http';
 
       <div class="switch-text">
         Don't have an account?
-        <a routerLink="/register">Register</a>
-      </div>
-
+        <a routerLink="/register">Register</a><br/>
+    </div>
+      If you are Techniqcision then must meet Admin for Login
     </div>
 
   </div>
   `,
-  styles: [`
-    .auth-wrapper {
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: linear-gradient(135deg, #667eea, #764ba2);
-    }
-
-    .auth-card {
-      background: #ffffff;
-      padding: 40px;
-      width: 400px;
-      border-radius: 12px;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-    }
-
-    h2 {
-      text-align: center;
-      margin-bottom: 25px;
-      color: #333;
-    }
-
-    .form-group {
-      margin-bottom: 18px;
-    }
-
-    label {
-      display: block;
-      margin-bottom: 6px;
-      font-size: 14px;
-      color: #555;
-    }
-
-    input {
-      width: 100%;
-      padding: 12px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      font-size: 14px;
-    }
-
-    input:focus {
-      border-color: #667eea;
-      outline: none;
-      box-shadow: 0 0 5px rgba(102,126,234,0.4);
-    }
-
-    .btn-primary {
-      width: 100%;
-      padding: 12px;
-      background: #667eea;
-      border: none;
-      color: white;
-      border-radius: 8px;
-      font-size: 16px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    .btn-primary:hover {
-      background: #5563c1;
-    }
-
-    .switch-text {
-      text-align: center;
-      margin-top: 20px;
-    }
-
-    .switch-text a {
-      color: #667eea;
-      font-weight: bold;
-      text-decoration: none;
-      cursor: pointer;
-    }
-
-    .switch-text a:hover {
-      text-decoration: underline;
-    }
-  `]
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
 

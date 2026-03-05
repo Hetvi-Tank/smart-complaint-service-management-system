@@ -8,7 +8,6 @@ import { RouterOutlet, RouterLink } from '@angular/router';
   imports: [CommonModule, RouterOutlet, RouterLink],
   template: `
     <nav class="navbar">
-      <h2>User Panel</h2>
       <div>
         <!-- <a routerLink="/user/dashboard">Dashboard</a>
         <a routerLink="/user/add">Add Complaint</a> -->

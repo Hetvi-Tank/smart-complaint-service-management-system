@@ -6,6 +6,7 @@
 
     <form (ngSubmit)="createAgent()" #formRef="ngForm">
 
+      <!-- Name -->
       <div class="input-group">
         <input type="text"
                name="name"
@@ -14,6 +15,7 @@
                required>
       </div>
 
+      <!-- Email -->
       <div class="input-group">
         <input type="email"
                name="email"
@@ -22,6 +24,7 @@
                required>
       </div>
 
+      <!-- Phone -->
       <div class="input-group">
         <input type="text"
                name="phone"
@@ -30,12 +33,49 @@
                required>
       </div>
 
+      <!-- Category Dropdown -->
       <div class="input-group">
-        <input type="password"
-               name="password"
-               placeholder="Password"
-               [(ngModel)]="agent.password"
-               required>
+        <select name="category"
+                [(ngModel)]="agent.category"
+                required>
+
+          <option value="" disabled>Select Category</option>
+          <option value="Security Service">Security Service</option>
+          <option value="Public Utility">Public Utility</option>
+          <option value="Electrical">Electrical</option>
+          <option value="Plumbing">Plumbing</option>
+
+        </select>
+      </div>
+
+      <!-- Gender Radio Buttons -->
+      <div class="input-group gender-group">
+
+        <label class="radio-label">
+          <input type="radio"
+                 name="gender"
+                 value="Male"
+                 [(ngModel)]="agent.gender"
+                 required>
+          Male
+        </label>
+
+        <label class="radio-label">
+          <input type="radio"
+                 name="gender"
+                 value="Female"
+                 [(ngModel)]="agent.gender">
+          Female
+        </label>
+
+        <label class="radio-label">
+          <input type="radio"
+                 name="gender"
+                 value="Other"
+                 [(ngModel)]="agent.gender">
+          Other
+        </label>
+
       </div>
 
       <button type="submit">Create Agent</button>
