@@ -79,3 +79,6 @@ input:focus {
 .switch-text a:hover {
   text-decoration: underline;
 }
+input {
+  appearance: none;
+}

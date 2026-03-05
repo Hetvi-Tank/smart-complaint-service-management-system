@@ -41,27 +41,32 @@ export const routes: Routes = [
   },
 
   // ================= AGENT =================
-  {
-    path: 'agent',
-    loadComponent: () =>
-      import('./layouts/agent-layout/agent-layout.component')
-        .then(m => m.AgentLayoutComponent),
-    children: [
-      {
-        path: 'dashboard',
-        loadComponent: () =>
-          import('./modules/agent/agent-dashboard/agent-dashboard.component')
-            .then(m => m.AgentDashboardComponent)
-      },
-      {
-        path: 'assigned',
-        loadComponent: () =>
-          import('./modules/agent/assigned-complaints/assigned-complaints.component')
-            .then(m => m.AssignedComplaintsComponent)
-      }
-    ]
-  },
-
+{
+  path: 'agent',
+  loadComponent: () =>
+    import('./layouts/agent-layout/agent-layout.component')
+      .then(m => m.AgentLayoutComponent),
+  children: [
+    {
+      path: 'dashboard',
+      loadComponent: () =>
+        import('./modules/agent/agent-dashboard/agent-dashboard.component')
+          .then(m => m.AgentDashboardComponent)
+    },
+    {
+      path: 'assigned',
+      loadComponent: () =>
+        import('./modules/agent/assigned-complaints/assigned-complaints.component')
+          .then(m => m.AssignedComplaintsComponent)
+    },
+    {
+      path: 'change-password',
+      loadComponent: () =>
+        import('./modules/agent/change-password/change-password.component')
+          .then(m => m.ChangePasswordComponent)
+    }
+  ]
+},
   // ================= USER =================
   {
     path: 'user',

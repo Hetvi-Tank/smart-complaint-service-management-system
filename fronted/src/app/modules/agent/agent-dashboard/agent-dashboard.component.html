@@ -1,1 +1,52 @@
-<p>agent-dashboard works!</p>
+<div class="dashboard">
+
+  <h2>Agent Dashboard</h2>
+
+  <!-- ===== Stats Cards ===== -->
+  <div class="stats">
+
+    <div class="card">
+      <h3>Total Assigned</h3>
+      <p>{{ totalAssigned }}</p>
+    </div>
+
+    <div class="card">
+      <h3>In Progress</h3>
+      <p>{{ inProgress }}</p>
+    </div>
+
+    <div class="card">
+      <h3>Completed</h3>
+      <p>{{ completed }}</p>
+    </div>
+
+  </div>
+
+  <!-- ===== Actions Section ===== -->
+  <div class="actions">
+
+    <h3>Work Process</h3>
+
+    <div class="buttons">
+
+      <a routerLink="/agent/assigned" class="btn">
+        View Assigned Complaints
+      </a>
+
+      <button class="btn">Accept Complaints</button>
+
+      <button class="btn">Mark as In Progress</button>
+
+      <button class="btn">Upload Working Photo</button>
+
+      <button class="btn">Add Remarks</button>
+
+      <a routerLink="/agent/change-password" class="btn change">
+        Change Password
+      </a>
+
+    </div>
+
+  </div>
+
+</div>

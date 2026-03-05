@@ -67,29 +67,34 @@ export class LoginComponent {
 
   login() {
 
-    this.http.post<any>(
-      'http://localhost:5000/api/auth/login',
-      this.form
-    ).subscribe({
-      next: (res) => {
+  this.http.post<any>(
+    'http://localhost:5000/api/auth/login',
+    this.form
+  ).subscribe({
+    next: (res) => {
 
-        localStorage.setItem('token', res.token);
-        localStorage.setItem('role', res.role);
+      localStorage.setItem('token', res.token);
+      localStorage.setItem('role', res.role);
 
-        if (res.role === 'admin') {
-          this.router.navigate(['/admin/dashboard']);
-        } else if (res.role === 'agent') {
-          this.router.navigate(['/agent/dashboard']);
-        } else {
-          this.router.navigate(['/user/dashboard']);
-        }
+      // ✅ FIXED LINE
+      localStorage.setItem('email', this.form.email);
 
-      },
-      error: (err) => {
-        this.message = err.error?.message || "Login failed";
+      if (res.role === 'admin') {
+        this.router.navigate(['/admin/dashboard']);
+      } 
+      else if (res.role === 'agent') {
+        this.router.navigate(['/agent/dashboard']);
+      } 
+      else {
+        this.router.navigate(['/user/dashboard']);
       }
-    });
 
-  }
+    },
+    error: (err) => {
+      this.message = err.error?.message || "Login failed";
+    }
+  });
+
+}
 
 }

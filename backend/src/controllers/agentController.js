@@ -1,5 +1,5 @@
 
-const Agent = require("../models/Agent");
+const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const nodemailer = require("nodemailer");
 
@@ -48,7 +48,7 @@ exports.createAgent = async (req, res) => {
       return res.status(400).json({ message: "All fields are required" });
     }
 
-    const existingAgent = await Agent.findOne({ email });
+   const existingAgent = await User.findOne({ email });
     if (existingAgent) {
       return res.status(400).json({ message: "Email already exists" });
     }
@@ -57,14 +57,15 @@ exports.createAgent = async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(randomPassword, 10);
 
-    const newAgent = new Agent({
-      name,
-      email,
-      phone,
-      category,
-      gender,
-      password: hashedPassword
-    });
+const newAgent = new User({
+  name,
+  email,
+  phone,
+  category,
+  gender,
+  password: hashedPassword,
+  role: "agent"
+});
 
     await newAgent.save();
 

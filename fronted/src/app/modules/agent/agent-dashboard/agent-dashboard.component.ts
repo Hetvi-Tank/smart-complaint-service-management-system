@@ -4,15 +4,13 @@ import { RouterModule } from '@angular/router';
 @Component({
   standalone: true,
   imports: [RouterModule],
-  template: `
-  <div class="page">
-    <h2>Agent Dashboard</h2>
-    <a routerLink="/agent/assigned">View Assigned Complaints</a>
-  </div>
-  `,
-  styles: [`
-    .page { padding:40px; }
-    a { font-size:18px; color:#3498db; }
-  `]
+  templateUrl: './agent-dashboard.component.html',
+  styleUrls: ['./agent-dashboard.component.css']
 })
-export class AgentDashboardComponent {}
+export class AgentDashboardComponent {
+
+  totalAssigned = 12;
+  inProgress = 5;
+  completed = 7;
+
+}

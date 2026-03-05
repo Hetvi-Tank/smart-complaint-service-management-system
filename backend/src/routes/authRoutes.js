@@ -69,4 +69,41 @@ router.post('/login', async (req, res) => {
 
 });
 
+/* CHANGE PASSWORD */
+
+router.put('/change-password', async (req, res) => {
+  try {
+
+    const { email, currentPassword, newPassword } = req.body;
+
+    // Basic validation
+    if (!email || !currentPassword || !newPassword) {
+      return res.status(400).json({ message: "All fields are required" });
+    }
+
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Compare current password
+    const isMatch = await bcrypt.compare(currentPassword, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ message: "Current password incorrect" });
+    }
+
+    // Hash new password
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+    user.password = hashedPassword;
+    await user.save();
+
+    res.json({ message: "Password updated successfully" });
+
+  } catch (err) {
+    console.error("Change Password Error:", err);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
 module.exports = router;
