@@ -4,7 +4,29 @@ html, body {
 }
 
 .wrapper {
-  min-height: 100vh;
+  min-height: 100vh;.header {
+  background: #1e293b;
+  color: white;
+  padding: 8px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo-img {
+  height: 40px;
+  width: auto;
+}
+
+nav {
+  display: flex;
+  gap: 20px;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+}
   display: flex;
   flex-direction: column;
 }
