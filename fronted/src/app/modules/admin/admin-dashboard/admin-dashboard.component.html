@@ -39,6 +39,7 @@
 <th>Priority</th>
 <th>Status</th>
 <th>City</th>
+<th>image</th>
 <th>Action</th>
 </tr>
 </thead>
@@ -52,6 +53,9 @@
 <td>{{c.priority}}</td>
 <td>{{c.status}}</td>
 <td>{{c.city}}</td>
+<td>
+  <img *ngIf="c.image" [src]="c.image" width="80">
+</td>
 
 <td>
 <button (click)="viewComplaint(c._id)">

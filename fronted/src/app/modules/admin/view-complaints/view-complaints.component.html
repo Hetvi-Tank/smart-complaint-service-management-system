@@ -1,4 +1,4 @@
-<h2>All Complaints</h2>
+<!-- <h2>All Complaints</h2>
 
 <div class="table-container">
 
@@ -28,5 +28,130 @@
 </tr>
 
 </table>
+
+</div> -->
+
+<!-- <h2>All Complaints</h2>
+
+<div class="table-container">
+
+<table>
+
+<tr>
+  <th>Title</th>
+  <th>Description</th>
+  <th>Category</th>
+  <th>Priority</th>
+  <th>City</th>
+  <th>Image</th>
+</tr>
+
+<tr *ngFor="let c of complaints">
+
+  <td>{{c.title}}</td>
+  <td>{{c.description}}</td>
+  <td>{{c.category}}</td>
+  <td>{{c.priority}}</td>
+  <td>{{c.city}}</td>
+
+  <td>
+  <img
+    *ngIf="c.image"
+    [src]="'http://localhost:5000/uploads/' + c.image"
+    width="80"
+    height="80"
+    style="object-fit:cover;border-radius:6px"
+    >
+</td>
+
+</tr>
+
+</table>
+
+</div> -->
+<div class="page">
+
+<h2 class="title">Complaint Detail</h2>
+
+<div *ngIf="complaint" class="card">
+
+<!-- LEFT SIDE -->
+
+<div class="left">
+
+<h3 class="complaint-title">{{complaint.title}}</h3>
+
+<p class="desc">{{complaint.description}}</p>
+
+<div class="info">
+
+<p>
+<span class="label">Category</span>
+<span class="value">{{complaint.category}}</span>
+</p>
+
+<p>
+<span class="label">Priority</span>
+<span class="priority" [ngClass]="complaint.priority">
+{{complaint.priority}}
+</span>
+</p>
+
+<p>
+<span class="label">Status</span>
+<span class="status" [ngClass]="complaint.status">
+{{complaint.status}}
+</span>
+</p>
+
+<p>
+<span class="label">City</span>
+<span class="value">{{complaint.city}}</span>
+</p>
+
+<p>
+<span class="label">Area</span>
+<span class="value">{{complaint.area}}</span>
+</p>
+
+</div>
+
+</div>
+
+
+<!-- RIGHT SIDE IMAGE -->
+
+<div class="right">
+
+<!-- <img
+*ngIf="complaint.image"
+[src]="'http://localhost:5000/' + complaint.image"
+class="complaint-img"
+alt="Complaint Image"> -->
+<img *ngIf="complaint.image" [src]="complaint.image" width="80" class="complaint-img">
+
+</div>
+
+</div>
+
+
+<!-- ASSIGN AGENT -->
+
+<div class="assign-box">
+
+<h3>Assign Agent</h3>
+
+<select class="agent-select"
+(change)="assignAgent($any($event.target).value)">
+
+<option value="">Select Agent</option>
+
+<option *ngFor="let a of agents" [value]="a._id">
+{{a.name}} ({{a.category}})
+</option>
+
+</select>
+
+</div>
 
 </div>

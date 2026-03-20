@@ -7,8 +7,8 @@ import { ComplaintService } from '../../../core/services/complaint.service';
 selector:'app-view-complaint',
 standalone:true,
 imports:[CommonModule],
-templateUrl:'./view-complaints.component.html',
-styleUrls:['./view-complaints.component.css']
+templateUrl: './view-customers.component.html',
+styleUrls:['./view-customers.component.css']
 })
 export class ViewComplaintComponent implements OnInit{
 

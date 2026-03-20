@@ -57,6 +57,9 @@ const complaintSchema = new mongoose.Schema({
     enum: ["Low", "Medium", "High"],
     default: "Low"
   },
+  address: String,
+   area: String,
+   city: String,
 
   image: {
     type: String,

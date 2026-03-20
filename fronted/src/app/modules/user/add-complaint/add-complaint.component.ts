@@ -18,8 +18,8 @@ export class AddComplaintComponent {
   address: string = '';
   area: string = '';
   city: string = '';
-  latitude:any = '';
-  longitude:any = '';
+  // latitude:any = '';
+  // longitude:any = '';
 
   selectedFile: File | null = null;
   message: string = '';
@@ -33,30 +33,30 @@ export class AddComplaintComponent {
       this.selectedFile = event.target.files[0];
     }
   }
-    getLocation(){
+  //   getLocation(){
 
-    if(navigator.geolocation){
+  //   if(navigator.geolocation){
 
-      navigator.geolocation.getCurrentPosition((position)=>{
+  //     navigator.geolocation.getCurrentPosition((position)=>{
 
-        this.latitude = position.coords.latitude;
-        this.longitude = position.coords.longitude;
+  //       this.latitude = position.coords.latitude;
+  //       this.longitude = position.coords.longitude;
 
-      },
-      (error)=>{
+  //     },
+  //     (error)=>{
 
-        console.error(error);
-        alert("Unable to get location");
+  //       console.error(error);
+  //       alert("Unable to get location");
 
-      });
+  //     });
 
-    }else{
+  //   }else{
 
-      alert("Geolocation not supported");
+  //     alert("Geolocation not supported");
 
-    }
+  //   }
 
-  }
+  // }
 
 
   submit() {
@@ -84,8 +84,8 @@ export class AddComplaintComponent {
     formData.append('address', this.address);
     formData.append('area', this.area);
     formData.append('city', this.city);
-      formData.append('latitude',this.latitude);
-    formData.append('longitude',this.longitude);
+    //   formData.append('latitude',this.latitude);
+    // formData.append('longitude',this.longitude);
 
     if (this.selectedFile) {
       formData.append('image', this.selectedFile);
@@ -121,8 +121,8 @@ export class AddComplaintComponent {
     this.address = '';
     this.area = '';
     this.city = '';
-      this.latitude='';
-    this.longitude='';
+    //   this.latitude='';
+    // this.longitude='';
     this.selectedFile = null;
   }
 }

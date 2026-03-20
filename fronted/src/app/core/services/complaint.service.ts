@@ -47,7 +47,7 @@ export class ComplaintService {
   getComplaints(){
 
     return this.http.get<any[]>(
-      this.API + "/complaints",
+      this.API + "/complaints/all",
       this.getHeaders()
     );
 

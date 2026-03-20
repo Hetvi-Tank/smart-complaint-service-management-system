@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-dashboard',
@@ -19,7 +20,16 @@ export class UserDashboardComponent implements OnInit {
   pending = 0;
   completed = 0;
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router
+  ) {}
+
+  logout() {
+    localStorage.clear();
+    alert("Logged out successfully");
+    this.router.navigate(['/login']);
+  }
 
   ngOnInit() {
 
