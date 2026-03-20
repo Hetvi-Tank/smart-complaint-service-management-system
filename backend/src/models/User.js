@@ -5,8 +5,6 @@ const userSchema = new mongoose.Schema({
   email: { type: String, unique: true },
   phone: String,
   password: String,
-
-  // 👇 Ye add karo
   category: String,
   gender: String,
 

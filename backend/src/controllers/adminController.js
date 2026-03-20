@@ -36,12 +36,13 @@ const Complaint = require("../models/Complaint");
 exports.createAgent = async (req, res) => {
 
   try {
+    console.log("BODY DATA:", req.body);
 
-    const { name, email, phone, category, gender } = req.body;
+    const { name, email, phone, area, city, category, gender } = req.body;
 
-    if (!name || !email || !phone || !category || !gender) {
-      return res.status(400).json({ message: "All fields are required" });
-    }
+    if (!name || !email || !phone || !area || !city || !category || !gender) {
+  return res.status(400).json({ message: "All fields are required" });
+}
 
     const existing = await User.findOne({ email });
 
@@ -53,6 +54,8 @@ exports.createAgent = async (req, res) => {
       name,
       email,
       phone,
+      area,
+      city,
       category,
       gender,
       role: "agent",

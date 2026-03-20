@@ -6,6 +6,7 @@ const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const cloudinary = require("../config/cloudinary");
 const path = require('path');
 const fs = require('fs');
+const User = require('../models/User');
 
 
 const auth = require('../../middleware/authMiddleware');
@@ -52,6 +53,11 @@ router.post('/create', upload.single('image'), async (req, res) => {
     const token = req.headers.authorization?.split(" ")[1];
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
+    const agent = await User.findOne({
+  role: "agent",
+  area: req.body.area
+});
+
     const complaint = new Complaint({
       title: req.body.title,
       description: req.body.description,
@@ -62,14 +68,20 @@ router.post('/create', upload.single('image'), async (req, res) => {
       city: req.body.city,
       image: req.file ? req.file.path : null,
       user: decoded.id,
-      status: "Pending"
+      // 👇 AUTO ASSIGN
+  assignedTo: agent ? agent._id : null,
+
+  // 👇 STATUS CHANGE
+  status: agent ? "Assigned" : "Pending"
     });
 
     await complaint.save();
 
     res.json({
       success: true,
-      message: "Complaint Saved Successfully"
+      message: agent
+    ? "Complaint submitted & auto-assigned ✅"
+    : "Complaint submitted but no agent available ⚠️"
     });
 
   } catch (err) {
