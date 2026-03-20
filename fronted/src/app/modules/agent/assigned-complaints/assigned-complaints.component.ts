@@ -1,32 +1,50 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ComplaintService } from '../../../core/services/complaint.service';
 
 @Component({
+  selector: 'app-assigned-complaints',
   standalone: true,
   imports: [CommonModule],
-  template: `
-  <div class="page">
-    <h2>Assigned Complaints</h2>
-
-    <table>
-      <tr>
-        <th>User</th>
-        <th>Title</th>
-        <th>Status</th>
-      </tr>
-      <tr>
-        <td>User 1</td>
-        <td>Water Issue</td>
-        <td>Pending</td>
-      </tr>
-    </table>
-  </div>
-  `,
-  styles: [`
-    .page { padding:40px; }
-    table { width:100%; border-collapse: collapse; }
-    th, td { border:1px solid #ddd; padding:10px; }
-    th { background:#3498db; color:white; }
-  `]
+  templateUrl: './assigned-complaints.component.html',
+  styleUrls: ['./assigned-complaints.component.css']
 })
-export class AssignedComplaintsComponent {}
+export class AssignedComplaintsComponent implements OnInit {
+
+  complaints:any[]=[];
+
+  constructor(private complaintService:ComplaintService){}
+
+  ngOnInit(){
+
+    this.loadComplaints();
+
+  }
+
+  loadComplaints(){
+
+    this.complaintService.getAgentComplaints()
+    .subscribe((data:any)=>{
+
+      this.complaints=data;
+
+    })
+
+  }
+
+  changeStatus(id:any,status:any){
+
+    this.complaintService.updateStatus({
+
+      complaintId:id,
+      status:status
+
+    }).subscribe(()=>{
+
+      this.loadComplaints();
+
+    })
+
+  }
+
+}

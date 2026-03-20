@@ -1,1 +1,41 @@
-<p>agent-layout works!</p>
+<div class="wrapper">
+
+<header class="header">
+
+  <div class="logo-box">
+    <img src="/assets/logo.png" class="logo-img">
+  </div>
+
+  <div class="user-menu" (click)="toggleMenu()">
+
+    <div class="user-icon">
+      {{ username.charAt(0).toUpperCase() }}
+    </div>
+
+    <div class="dropdown" *ngIf="menuOpen">
+
+  <p class="username">{{ username }}</p>
+
+  <a (click)="changePassword()" class="menu-link">
+    Change Password
+  </a>
+
+  <a (click)="logout()" class="menu-link logout">
+    Logout
+  </a>
+
+</div>
+
+  </div>
+
+</header>
+
+<div class="main-content">
+  <router-outlet></router-outlet>
+</div>
+<!-- FOOTER -->
+  <footer class="footer">
+    © 2026 Complaint Management System | Agent
+  </footer>
+
+</div>

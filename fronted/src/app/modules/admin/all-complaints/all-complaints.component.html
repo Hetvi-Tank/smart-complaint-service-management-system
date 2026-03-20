@@ -1,1 +1,47 @@
-<p>all-complaints works!</p>
+<h2>All Complaints</h2>
+
+<table>
+
+<tr>
+<th>Title</th>
+<th>Category</th>
+<th>Priority</th>
+<th>Status</th>
+<th>Assign Agent</th>
+<th>Action</th>
+</tr>
+
+<tr *ngFor="let c of complaints">
+
+<td>{{c.title}}</td>
+<td>{{c.category}}</td>
+<td>{{c.priority}}</td>
+<td>{{c.status}}</td>
+
+<td>
+
+<select (change)="assignAgent(c._id,$any($event.target).value)">
+
+<option value="">Select Agent</option>
+
+<option *ngFor="let a of agents" [value]="a._id">
+
+{{a.name}}
+
+</option>
+
+</select>
+
+</td>
+
+<td>
+
+<button (click)="viewComplaint(c._id)">
+View
+</button>
+
+</td>
+
+</tr>
+
+</table>

@@ -18,6 +18,8 @@ export class CreateAgentComponent {
     name: '',
     email: '',
     phone: '',
+    city: '',
+    area: '',
     category: '',
     gender: ''
   };
@@ -34,9 +36,11 @@ export class CreateAgentComponent {
       !this.agent.name ||
       !this.agent.email ||
       !this.agent.phone ||
+      !this.agent.city ||
+      !this.agent.area ||
       !this.agent.category ||
       !this.agent.gender
-    ) {
+    ){
       this.errorMessage = "All fields are required!";
       return;
     }
@@ -45,10 +49,12 @@ export class CreateAgentComponent {
       .subscribe({
         next: (res: any) => {
           this.successMessage = res.message;
-          this.agent = {
+         this.agent = {
             name: '',
             email: '',
             phone: '',
+            city: '',
+            area: '',
             category: '',
             gender: ''
           };

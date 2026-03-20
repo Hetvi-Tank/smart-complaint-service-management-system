@@ -1,28 +1,39 @@
-.my-page {
-  padding: 30px;
+.page{
+padding:20px;
 }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 20px;
+table{
+width:100%;
+border-collapse:collapse;
 }
 
-th, td {
-  border: 1px solid #ccc;
-  padding: 8px;
-  text-align: center;
+th,td{
+padding:10px;
+border-bottom:1px solid #ddd;
+text-align:left;
 }
 
-th {
-  background: #2563eb;
-  color: white;
+.status{
+padding:5px 10px;
+border-radius:5px;
+color:white;
+font-size:13px;
 }
 
-button {
-  padding: 8px 15px;
-  background: #2563eb;
-  color: white;
-  border: none;
-  border-radius: 6px;
+/* STATUS COLORS */
+
+.Pending{
+background:orange;
+}
+
+.Assigned{
+background:blue;
+}
+
+.InProgress{
+background:purple;
+}
+
+.Completed{
+background:green;
 }

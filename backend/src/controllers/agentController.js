@@ -42,7 +42,8 @@ async function sendEmail(to, password) {
 exports.createAgent = async (req, res) => {
   try {
 
-    const { name, email, phone, category, gender } = req.body;
+    const { name, phone, category, gender } = req.body;
+const email = req.body.email.toLowerCase();
 
     if (!name || !email || !phone || !category || !gender) {
       return res.status(400).json({ message: "All fields are required" });
@@ -77,5 +78,58 @@ const newAgent = new User({
 
   } catch (error) {
     res.status(500).json({ message: error.message });
+  }
+};
+exports.getAssignedComplaints = async (req, res) => {
+
+  try {
+
+    const agentId = req.user.id;
+
+    const complaints = await Complaint.find({
+      assignedTo: agentId
+    })
+    .populate("user","name email phone")
+    .sort({ priority: -1, createdAt: -1 }); // priority first
+
+    res.json(complaints);
+
+  } catch (error) {
+
+    res.status(500).json({ message: error.message });
+
+  }
+
+};
+
+
+// UPDATE STATUS
+exports.updateStatus = async (req, res) => {
+
+  try {
+
+    const { complaintId, status } = req.body;
+
+    const complaint = await Complaint.findByIdAndUpdate(
+
+      complaintId,
+
+      { status: status },
+
+      { new: true }
+
+    );
+
+    res.json({
+      message: "Status updated successfully",
+      complaint
+    });
+
+  } catch (error) {
+
+    res.status(500).json({
+      message: error.message
+    });
+
   }
 };

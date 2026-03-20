@@ -1,30 +1,150 @@
-const User = require('../models/User');
+// const User = require('../models/User');
 
-// Create Agent (Admin)
+// // Create Agent (Admin)
+// exports.createAgent = async (req, res) => {
+
+//   const { name, email, password } = req.body;
+
+//   const oldUser = await User.findOne({ email });
+
+//   if (oldUser) {
+//     return res.status(400).json({ msg: "Email already exists" });
+//   }
+
+//   await User.create({
+//     name,
+//     email,
+//     password,
+//     role: 'agent'
+//   });
+
+//   res.json({ msg: "Agent Created Successfully" });
+// };
+
+// // Get All Agents
+// exports.getAgents = async (req, res) => {
+
+//   const agents = await User.find({ role: 'agent' });
+
+//   res.json(agents);
+// };
+const User = require("../models/User");
+const Complaint = require("../models/Complaint");
+
+
+// CREATE AGENT
 exports.createAgent = async (req, res) => {
 
-  const { name, email, password } = req.body;
+  try {
 
-  const oldUser = await User.findOne({ email });
+    const { name, email, phone, category, gender } = req.body;
 
-  if (oldUser) {
-    return res.status(400).json({ msg: "Email already exists" });
+    if (!name || !email || !phone || !category || !gender) {
+      return res.status(400).json({ message: "All fields are required" });
+    }
+
+    const existing = await User.findOne({ email });
+
+    if (existing) {
+      return res.status(400).json({ message: "Agent already exists" });
+    }
+
+    const newAgent = new User({
+      name,
+      email,
+      phone,
+      category,
+      gender,
+      role: "agent",
+      password: "123456"
+    });
+
+    await newAgent.save();
+
+    res.status(201).json({
+      message: "Agent created successfully",
+      agent: newAgent
+    });
+
+  } catch (error) {
+
+    res.status(500).json({
+      message: error.message
+    });
+
   }
 
-  await User.create({
-    name,
-    email,
-    password,
-    role: 'agent'
-  });
-
-  res.json({ msg: "Agent Created Successfully" });
 };
 
-// Get All Agents
+
+// GET ALL AGENTS
 exports.getAgents = async (req, res) => {
 
-  const agents = await User.find({ role: 'agent' });
+  try {
 
-  res.json(agents);
+    const agents = await User.find({ role: "agent" })
+      .select("-password")
+      .sort({ createdAt: -1 });
+
+    res.json(agents);
+
+  } catch (error) {
+
+    res.status(500).json({
+      message: error.message
+    });
+
+  }
+
+};
+
+
+// ASSIGN COMPLAINT TO AGENT
+exports.assignComplaint = async (req, res) => {
+
+  try {
+
+    const { complaintId, agentId } = req.body;
+
+    if (!complaintId || !agentId) {
+      return res.status(400).json({
+        message: "ComplaintId and AgentId required"
+      });
+    }
+
+    const complaint = await Complaint.findByIdAndUpdate(
+
+      complaintId,
+
+      {
+        assignedTo: agentId,
+        status: "Assigned"
+      },
+
+      {
+        new: true,
+        runValidators: false
+      }
+
+    );
+
+    if (!complaint) {
+      return res.status(404).json({
+        message: "Complaint not found"
+      });
+    }
+
+    res.json({
+      message: "Complaint assigned successfully",
+      complaint
+    });
+
+  } catch (error) {
+
+    res.status(500).json({
+      message: error.message
+    });
+
+  }
+
 };

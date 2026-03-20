@@ -3,21 +3,25 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg, #667eea, #764ba2);
+  background-image: url('/assets/login.webp');
+  background-size: cover;       /* full screen cover kare */
+  background-position: center;  /* center align */
+  background-repeat: no-repeat;
 }
 
 .auth-card {
-  background: #ffffff;
+  background:rgba(0,0,0,0.5);
   padding: 40px;
   width: 400px;
   border-radius: 12px;
   box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+  color: #fcfbfb;
 }
 
-.auth-card h2 {
+.auth-card h1 {
   text-align: center;
-  margin-bottom: 25px;
-  color: #333;
+  color: #fcfbfb;
+  font-size: 180%;
 }
 
 .form-group {
@@ -27,16 +31,17 @@
 label {
   display: block;
   margin-bottom: 6px;
-  font-size: 14px;
-  color: #555;
+  font-size: 100%;
+  color: #fafafa;
 }
 
 input {
-  width: 100%;
+  width: 93%;
   padding: 12px;
   border-radius: 8px;
   border: 1px solid #ccc;
   font-size: 14px;
+  color: black;
 }
 
 input:focus {
@@ -48,7 +53,7 @@ input:focus {
 .btn-primary {
   width: 100%;
   padding: 12px;
-  background: #667eea;
+  background: #8096f7;
   border: none;
   color: white;
   border-radius: 8px;
@@ -68,6 +73,7 @@ input:focus {
   background-color: #f3f4ff;   /* light background */
   border: 1px solid #667eea;   /* border color */
   border-radius: 8px;
+  color: black;
 }
 
 .switch-text a {
@@ -79,6 +85,19 @@ input:focus {
 .switch-text a:hover {
   text-decoration: underline;
 }
-input {
-  appearance: none;
+.auth-card span {
+  display: block;
+  text-align: center;
+  margin-top: 10px;
+}
+.show-pass{
+  margin-top: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+}
+
+.show-pass input{
+  width: auto;
 }

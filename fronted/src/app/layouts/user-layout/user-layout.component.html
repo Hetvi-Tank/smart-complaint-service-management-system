@@ -1,23 +1,65 @@
 <div class="wrapper">
 
   <header class="header">
+
   <div class="logo-box">
     <img src="/assets/logo.png" alt="Logo" class="logo-img">
   </div>
 
-  <nav>
-    <a routerLink="dashboard">Dashboard</a>
-    <a routerLink="add">Add Complaint</a>
-    <a routerLink="/login" class="logout">Logout</a>
-  </nav>
-</header>
+  <div class="user-menu" (click)="toggleMenu()">
+    
+    <div class="user-icon">
+      {{ username.charAt(0).toUpperCase() }}
+    </div>
 
+    <div class="dropdown" *ngIf="menuOpen">
+      <p class="username">{{ username }}</p>
+<a (click)="changePassword()" class="menu-link">
+    Change Password
+  </a>
+
+  <a (click)="logout()" class="menu-link logout">
+    Logout
+  </a>
+    </div>
+
+  </div>
+
+</header>
   <div class="main-content">
     <router-outlet></router-outlet>
   </div>
 
   <footer class="footer">
-    © 2026 Complaint Management System | User
-  </footer>
+
+  <div class="footer-container">
+
+    <div class="footer-col">
+      <img src="/assets/logo.png" alt="FixPoint Logo" class="footer-logo">
+      <p>
+        We are always available for your Problem Solve
+      </p>
+    </div>
+
+    <div class="footer-col">
+      <h6>Quick Links</h6>
+      <ul>
+        <li><a href="/user/dashboard">My Complaints</a></li>
+        <li><a href="/">Feedback</a></li>
+        <li><a href="/user/add">Register Complaints</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h6>Contact Us</h6>
+      <p>
+        Surat, Gujarat, India <br>
+        +91 98765 43210
+      </p>
+    </div>
+
+  </div>
+
+</footer>
 
 </div>

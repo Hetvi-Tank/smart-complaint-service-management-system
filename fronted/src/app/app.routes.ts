@@ -17,6 +17,11 @@ export const routes: Routes = [
       import('./modules/auth/register/register.component')
         .then(m => m.RegisterComponent)
   },
+  {
+ path:'change-password',
+ loadComponent:()=>import('./modules/auth/change-password/change-password.component')
+ .then(m=>m.ChangePasswordComponent)
+},
 
   // ================= ADMIN =================
   {
@@ -36,7 +41,24 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./modules/admin/create-agent/create-agent.component')
             .then(m => m.CreateAgentComponent)
-      }
+      },
+      {
+        path: 'all-complaints',
+        loadComponent: () =>
+          import('./modules/admin/all-complaints/all-complaints.component')
+            .then(m => m.AllComplaintsComponent)
+      },
+         {
+        path: 'view-complaint/:id',
+        loadComponent: () =>
+          import('./modules/admin/view-complaints/view-complaints.component')
+            .then(m => m.ViewComplaintsComponent)
+        },
+{
+ path:'view-customers',
+ loadComponent:()=>import('./modules/admin/view-customers/view-customers.component')
+ .then(m=>m.ViewComplaintComponent)
+}
     ]
   },
 
@@ -59,12 +81,7 @@ export const routes: Routes = [
         import('./modules/agent/assigned-complaints/assigned-complaints.component')
           .then(m => m.AssignedComplaintsComponent)
     },
-    {
-      path: 'change-password',
-      loadComponent: () =>
-        import('./modules/agent/change-password/change-password.component')
-          .then(m => m.ChangePasswordComponent)
-    }
+   
   ]
 },
   // ================= USER =================
@@ -85,7 +102,11 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./modules/user/add-complaint/add-complaint.component')
             .then(m => m.AddComplaintComponent)
-      }
+      },
+        {
+        path:'view-complaints',
+        loadComponent:()=>import('./modules/user/view-complaints/view-complaints.component').then(m=>m.ViewComplaintsComponent)
+        },
     ]
   },
 

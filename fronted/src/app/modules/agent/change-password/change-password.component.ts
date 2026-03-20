@@ -21,33 +21,44 @@ export class ChangePasswordComponent {
 
   constructor(private http: HttpClient) {}
 
-  changePassword() {
+ 
+changePassword() {
 
-    this.errorMessage = '';
-    this.successMessage = '';
+  this.errorMessage = '';
+  this.successMessage = '';
 
-    if (this.newPassword !== this.confirmPassword) {
-      this.errorMessage = "Passwords do not match";
-      return;
-    }
-
-    const email = localStorage.getItem('email');  // 👈 Important
-
-    this.http.put('http://localhost:5000/api/auth/change-password', {
-      email,
-      currentPassword: this.currentPassword,
-      newPassword: this.newPassword
-    })
-    .subscribe({
-      next: (res: any) => {
-        this.successMessage = res.message;
-        this.currentPassword = '';
-        this.newPassword = '';
-        this.confirmPassword = '';
-      },
-      error: (err) => {
-        this.errorMessage = err.error.message;
-      }
-    });
+  if (!this.currentPassword || !this.newPassword || !this.confirmPassword) {
+    this.errorMessage = "All fields are required";
+    return;
   }
+
+  if (this.newPassword !== this.confirmPassword) {
+    this.errorMessage = "Passwords do not match";
+    return;
+  }
+
+  const email = localStorage.getItem('email');
+  if (!email) {
+    this.errorMessage = "User not logged in";
+    return;
+  }
+
+  this.http.put('http://localhost:5000/api/auth/change-password', {
+    email,
+    currentPassword: this.currentPassword,
+    newPassword: this.newPassword,
+    confirmPassword: this.confirmPassword  // 👈 Add this
+  })
+  .subscribe({
+    next: (res: any) => {
+      this.successMessage = res.message;
+      this.currentPassword = '';
+      this.newPassword = '';
+      this.confirmPassword = '';
+    },
+    error: (err) => {
+      this.errorMessage = err.error.message || 'Something went wrong';
+    }
+  });
+}
 }

@@ -1,7 +1,23 @@
 const express = require("express");
 const router = express.Router();
-const { createAgent } = require("../controllers/agentController");
+const agentController = require("../controllers/agentController");
 
-router.post("/create", createAgent);
+const authMiddleware = require("../../middleware/authMiddleware");
+// GET ASSIGNED COMPLAINTS
+router.get(
+  "/assigned-complaints",
+  authMiddleware,
+  agentController.getAssignedComplaints
+);
+
+
+// UPDATE STATUS
+router.put(
+  "/update-status",
+  authMiddleware,
+  agentController.updateStatus
+);
+
+
 
 module.exports = router;

@@ -8,50 +8,7 @@ import { HttpClient } from '@angular/common/http';
   selector: 'app-login',
   standalone: true,
   imports: [CommonModule, FormsModule, RouterModule],
-  template: `
-  <div class="auth-wrapper">
-
-    <div class="auth-card">
-
-      <h2>Login</h2>
-
-      <form (ngSubmit)="login()">
-
-        <div class="form-group">
-          <label>Email</label>
-          <input type="email"
-                 [(ngModel)]="form.email"
-                 name="email"
-                 required>
-        </div>
-
-        <div class="form-group">
-          <label>Password</label>
-          <input type="password"
-                 [(ngModel)]="form.password"
-                 name="password"
-                 required>
-        </div>
-
-        <button type="submit" class="btn-primary">
-          Login
-        </button>
-
-      </form>
-
-      <p style="color:red; text-align:center; margin-top:10px;">
-        {{ message }}
-      </p>
-
-      <div class="switch-text">
-        Don't have an account?
-        <a routerLink="/register">Register</a><br/>
-    </div>
-      If you are Techniqcision then must meet Admin for Login
-    </div>
-
-  </div>
-  `,
+  templateUrl:'./login.component.html',
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
@@ -62,30 +19,37 @@ export class LoginComponent {
   };
 
   message: string = '';
+ showPassword = false;
+
+togglePassword(){
+  this.showPassword = !this.showPassword;
+}
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  login() {
+ login() {
+
+  const loginData = {
+    email: this.form.email.toLowerCase(),
+    password: this.form.password
+  };
 
   this.http.post<any>(
     'http://localhost:5000/api/auth/login',
-    this.form
+    loginData
   ).subscribe({
     next: (res) => {
 
       localStorage.setItem('token', res.token);
       localStorage.setItem('role', res.role);
-
-      // ✅ FIXED LINE
-      localStorage.setItem('email', this.form.email);
+      localStorage.setItem('email', loginData.email);
+      localStorage.setItem('name', res.name);
 
       if (res.role === 'admin') {
         this.router.navigate(['/admin/dashboard']);
-      } 
-      else if (res.role === 'agent') {
+      } else if (res.role === 'agent') {
         this.router.navigate(['/agent/dashboard']);
-      } 
-      else {
+      } else {
         this.router.navigate(['/user/dashboard']);
       }
 

@@ -60,7 +60,8 @@ router.post('/login', async (req, res) => {
 
     res.json({
       token,
-      role: user.role
+      role: user.role,
+      name: user.name
     });
 
   } catch (err) {
@@ -104,6 +105,23 @@ router.put('/change-password', async (req, res) => {
     console.error("Change Password Error:", err);
     res.status(500).json({ message: "Server error" });
   }
+});
+/* GET ALL USERS (ADMIN) */
+
+router.get('/all-users', async (req, res) => {
+
+  try {
+
+    const users = await User.find({ role: "user" }).select("-password");
+
+    res.json(users);
+
+  } catch (err) {
+
+    res.status(500).json({ message: "Server Error" });
+
+  }
+
 });
 
 module.exports = router;

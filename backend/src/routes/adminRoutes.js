@@ -4,5 +4,7 @@ const { createAgent, getAgents } = require('../controllers/adminController');
 
 router.post('/create-agent', createAgent);
 router.get('/agents', getAgents);
+// ASSIGN COMPLAINT
+router.post("/assign-complaint", adminController.assignComplaint);
 
 module.exports = router;

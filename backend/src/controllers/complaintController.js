@@ -59,6 +59,25 @@ router.get('/agent', auth, async (req, res) => {
   }
 
 });
+/* ================= USER MY COMPLAINTS ================= */
+
+router.get('/my-complaints', auth, async (req, res) => {
+
+  try {
+
+    const complaints = await Complaint.find({
+      user: req.user.id
+    });
+
+    res.json(complaints);
+
+  } catch (err) {
+
+    res.status(500).json({ message: "Server Error" });
+
+  }
+
+});
 
 /* ================= UPDATE STATUS ================= */
 

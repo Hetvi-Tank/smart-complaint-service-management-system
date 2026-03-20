@@ -1,1 +1,70 @@
-<p>admin-dashboard works!</p>
+<h2>Admin Dashboard</h2>
+
+<!-- COUNT CARDS -->
+
+<div class="cards">
+
+<div class="card total">
+<h3>Total Complaints</h3>
+<p>{{total}}</p>
+</div>
+
+<div class="card pending">
+<h3>Pending</h3>
+<p>{{pending}}</p>
+</div>
+
+<div class="card assigned">
+<h3>Assigned</h3>
+<p>{{assigned}}</p>
+</div>
+
+<div class="card completed">
+<h3>Completed</h3>
+<p>{{completed}}</p>
+</div>
+
+</div>
+
+<!-- ALL COMPLAINTS TABLE -->
+
+<h3 class="table-title">All Complaints</h3>
+
+<table *ngIf="complaints.length>0">
+
+<thead>
+<tr>
+<th>Title</th>
+<th>Category</th>
+<th>Priority</th>
+<th>Status</th>
+<th>City</th>
+<th>Action</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr *ngFor="let c of complaints">
+
+<td>{{c.title}}</td>
+<td>{{c.category}}</td>
+<td>{{c.priority}}</td>
+<td>{{c.status}}</td>
+<td>{{c.city}}</td>
+
+<td>
+<button (click)="viewComplaint(c._id)">
+View
+</button>
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+<p *ngIf="complaints.length===0">
+No complaints found
+</p>

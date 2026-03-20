@@ -1,65 +1,120 @@
-.dashboard {
+/* ===== Background ===== */
+.dashboard-wrapper {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #4e73df, #1cc88a);
+  display: flex;
+  justify-content: center;
+  align-items: center;
   padding: 40px;
 }
 
-h2 {
-  margin-bottom: 30px;
+/* ===== Main Container ===== */
+.dashboard-container {
+  width: 1000px;
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 35px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
+  animation: fadeIn 0.4s ease-in-out;
 }
 
-.stats {
+/* ===== Header ===== */
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 35px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 15px;
+}
+
+.dashboard-header h2 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+}
+
+.logout-btn {
+  padding: 8px 18px;
+  border: none;
+  border-radius: 25px;
+  background: linear-gradient(135deg, #ff4d4d, #ff1a1a);
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.3s ease;
+}
+
+.logout-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(255, 0, 0, 0.3);
+}
+
+/* ===== Stats Section ===== */
+.stats-section {
   display: flex;
   gap: 20px;
   margin-bottom: 40px;
 }
 
-.card {
+.stat-card {
   flex: 1;
   padding: 25px;
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+  border-radius: 15px;
+  background: linear-gradient(135deg, #f8f9fc, #e3e6f0);
   text-align: center;
+  transition: 0.3s;
 }
 
-.card h3 {
+.stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.08);
+}
+
+.stat-card h4 {
+  font-size: 14px;
+  color: #666;
   margin-bottom: 10px;
-  color: #555;
 }
 
-.card p {
-  font-size: 28px;
+.stat-card p {
+  font-size: 26px;
   font-weight: bold;
-  color: #3498db;
+  color: #4e73df;
 }
 
-.actions h3 {
-  margin-bottom: 20px;
+/* ===== Action Buttons ===== */
+.actions-section {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
 }
 
-.buttons {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
-}
-
-.btn {
-  padding: 12px 20px;
+.action-btn {
+  padding: 18px;
   border: none;
-  border-radius: 6px;
-  background: #3498db;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #4e73df, #2e59d9);
   color: white;
+  font-size: 15px;
+  font-weight: 500;
   cursor: pointer;
-  text-decoration: none;
+  transition: 0.3s;
 }
 
-.btn:hover {
-  background: #2980b9;
+.action-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
 }
 
-.change {
-  background: #2ecc71;
-}
-
-.change:hover {
-  background: #27ae60;
+/* ===== Animation ===== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

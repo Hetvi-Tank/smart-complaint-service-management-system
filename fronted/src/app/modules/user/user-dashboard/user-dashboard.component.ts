@@ -1,119 +1,78 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule, Router } from '@angular/router';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-user-dashboard',
   standalone: true,
   imports: [CommonModule, RouterModule],
-  template: `
-  <div class="layout">
-
-    <div class="sidebar">
-      <h2>User Panel</h2>
-
-      <a routerLink="/user/dashboard">Dashboard</a>
-      <a routerLink="/user/add">Add Complaint</a>
-      <a routerLink="/user/my-complaints">My Complaints</a>
-      <button (click)="logout()">Logout</button>
-    </div>
-
-    <div class="content">
-      <h1>Welcome to User Dashboard</h1>
-
-      <div class="cards">
-
-        <div class="card" routerLink="/user/add">
-          <h3>Add Complaint</h3>
-          <p>Create new complaint easily.</p>
-        </div>
-
-        <div class="card" routerLink="/user/my-complaints">
-          <h3>My Complaints</h3>
-          <p>Track your complaint status.</p>
-        </div>
-
-      </div>
-    </div>
-
-  </div>
-  `,
-  styles: [`
-    .layout {
-      display: flex;
-      height: 100vh;
-    }
-
-    .sidebar {
-      width: 230px;
-      background: #2c3e50;
-      color: white;
-      padding: 25px;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .sidebar h2 {
-      margin-bottom: 30px;
-    }
-
-    .sidebar a {
-      color: white;
-      text-decoration: none;
-      margin-bottom: 15px;
-      padding: 8px;
-      border-radius: 6px;
-      transition: 0.3s;
-    }
-
-    .sidebar a:hover {
-      background: #34495e;
-    }
-
-    .sidebar button {
-      margin-top: auto;
-      padding: 10px;
-      background: #e74c3c;
-      border: none;
-      color: white;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-
-    .content {
-      flex: 1;
-      padding: 40px;
-      background: #f4f6f9;
-    }
-
-    .cards {
-      display: flex;
-      gap: 25px;
-      margin-top: 30px;
-    }
-
-    .card {
-      background: white;
-      padding: 30px;
-      width: 250px;
-      border-radius: 12px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    .card:hover {
-      transform: translateY(-5px);
-    }
-  `]
+  templateUrl: './user-dashboard.component.html',
+  styleUrls: ['./user-dashboard.component.css']
 })
-export class UserDashboardComponent {
+export class UserDashboardComponent implements OnInit {
 
-  constructor(private router: Router) {}
+  name: string = "";
+  complaints: any[] = [];
 
-  logout() {
-    localStorage.clear();
-    this.router.navigate(['/login']);
+  total = 0;
+  pending = 0;
+  completed = 0;
+
+  constructor(private http: HttpClient) {}
+
+  ngOnInit() {
+
+    const user = localStorage.getItem("user");
+
+    if (user) {
+      const data = JSON.parse(user);
+      this.name = data.name;
+    }
+
+    this.loadComplaints();
+
+  }
+
+  loadComplaints() {
+
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      console.error("Token not found");
+      return;
+    }
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+
+    this.http.get<any[]>(
+      "http://localhost:5000/api/complaints/my-complaints",
+      { headers }
+    )
+    .subscribe({
+
+      next: (data) => {
+
+        this.complaints = data;
+
+        this.total = data.length;
+
+        this.pending = data.filter(c => c.status === "Pending"|| c.status === "Assigned" ||
+          c.status === "In Progress"
+        ).length;
+
+        this.completed = data.filter(c => c.status === "Completed").length;
+
+      },
+
+      error: (err) => {
+        console.error("Complaint Load Error:", err);
+      }
+
+    });
+
   }
 
 }

@@ -1,23 +1,100 @@
-<div class="dashboard-page">
+<div class="dashboard-container">
 
-  <div class="dashboard-box">
+<!-- HEADER -->
 
-    <div class="dashboard-header">
-      <h2>Welcome {{name}}</h2>
+<div class="dashboard-header">
 
-      <button class="logout-btn" (click)="logout()">
-        Logout
-      </button>
-    </div>
+<h2>Welcome {{name}}</h2>
 
-    <div class="card-area">
+<div class="header-actions">
 
-      <div class="card">My Complaints</div>
-      <div class="card">Pending</div>
-      <div class="card">Completed</div>
+<a routerLink="/user/add" class="add-btn">
++ Add Complaint
+</a>
 
-    </div>
+<button class="logout-btn" (click)="logout()">
+Logout
+</button>
 
-  </div>
+</div>
+
+</div>
+
+
+<!-- STATS CARDS -->
+
+<div class="stats-grid">
+
+<div class="stat-card total">
+<h3>Total Complaints</h3>
+<p>{{total}}</p>
+</div>
+
+<div class="stat-card pending">
+<h3>Pending</h3>
+<p>{{pending}}</p>
+</div>
+
+<div class="stat-card completed">
+<h3>Completed</h3>
+<p>{{completed}}</p>
+</div>
+
+</div>
+
+
+<!-- COMPLAINT TABLE -->
+
+<div class="table-wrapper">
+
+<h3>My Complaints</h3>
+
+<table *ngIf="complaints.length > 0">
+
+<thead>
+
+<tr>
+<th>Title</th>
+<th>Category</th>
+<th>Priority</th>
+<th>Status</th>
+<th>City</th>
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr *ngFor="let c of complaints">
+
+<td>{{c.title}}</td>
+
+<td>{{c.category}}</td>
+
+<td>
+<span class="priority" [ngClass]="c.priority">
+{{c.priority}}
+</span>
+</td>
+
+<td>
+<span class="status" [ngClass]="c.status?.replace(' ','')">
+{{c.status}}
+</span>
+</td>
+
+<td>{{c.city || 'N/A'}}</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+<p *ngIf="complaints.length===0">
+No complaints found
+</p>
+
+</div>
 
 </div>

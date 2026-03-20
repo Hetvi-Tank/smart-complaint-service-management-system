@@ -1,49 +1,49 @@
-<div class="dashboard">
+<div class="dashboard-wrapper">
 
-  <h2>Agent Dashboard</h2>
+  <div class="dashboard-container">
 
-  <!-- ===== Stats Cards ===== -->
-  <div class="stats">
-
-    <div class="card">
-      <h3>Total Assigned</h3>
-      <p>{{ totalAssigned }}</p>
+    <!-- Header -->
+    <div class="dashboard-header">
+      <h2>Welcome, {{ agentName }}</h2>
+      <button (click)="logout()" class="logout-btn">Logout</button>
     </div>
 
-    <div class="card">
-      <h3>In Progress</h3>
-      <p>{{ inProgress }}</p>
+    <!-- Stats Section -->
+    <div class="stats-section">
+      <div class="stat-card">
+        <h4>Total Assigned</h4>
+        <p>{{ totalAssigned }}</p>
+      </div>
+
+      <div class="stat-card">
+        <h4>In Progress</h4>
+        <p>{{ inProgress }}</p>
+      </div>
+
+      <div class="stat-card">
+        <h4>Completed</h4>
+        <p>{{ completed }}</p>
+      </div>
     </div>
 
-    <div class="card">
-      <h3>Completed</h3>
-      <p>{{ completed }}</p>
-    </div>
+    <!-- Actions Section -->
+    <div class="actions-section">
 
-  </div>
-
-  <!-- ===== Actions Section ===== -->
-  <div class="actions">
-
-    <h3>Work Process</h3>
-
-    <div class="buttons">
-
-      <a routerLink="/agent/assigned" class="btn">
+      <button routerLink="/agent/assigned" class="action-btn">
         View Assigned Complaints
-      </a>
+      </button>
 
-      <button class="btn">Accept Complaints</button>
-
-      <button class="btn">Mark as In Progress</button>
-
-      <button class="btn">Upload Working Photo</button>
-
-      <button class="btn">Add Remarks</button>
-
-      <a routerLink="/agent/change-password" class="btn change">
+      <button routerLink="/agent/change-password" class="action-btn">
         Change Password
-      </a>
+      </button>
+
+      <button routerLink="/agent/profile" class="action-btn">
+        View Profile
+      </button>
+
+      <button routerLink="/agent/history" class="action-btn">
+        Complaint History
+      </button>
 
     </div>
 

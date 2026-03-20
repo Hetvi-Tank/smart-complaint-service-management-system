@@ -1,34 +1,74 @@
-<div class="container">
+<div class="page">
 
-  <h2>Assigned Complaints</h2>
+<h2>Assigned Complaints</h2>
 
-  <table border="1" width="100%">
+<table *ngIf="complaints.length>0">
 
-    <tr>
-      <th>User</th>
-      <th>Title</th>
-      <th>Status</th>
-      <th>Action</th>
-    </tr>
+<thead>
 
-    <tr *ngFor="let c of complaints">
+<tr>
 
-      <td>{{ c.user?.name }}</td>
-      <td>{{ c.title }}</td>
-      <td>{{ c.status }}</td>
+<th>User</th>
+<th>Title</th>
+<th>Category</th>
+<th>Priority</th>
+<th>Description</th>
+<th>Image</th>
+<th>Status</th>
 
-      <td>
-        <button (click)="updateStatus(c._id, 'In Progress')">
-          In Progress
-        </button>
+</tr>
 
-        <button (click)="updateStatus(c._id, 'Completed')">
-          Completed
-        </button>
-      </td>
+</thead>
 
-    </tr>
+<tbody>
 
-  </table>
+<tr *ngFor="let complaint of complaints">
+
+<td>{{complaint.user?.name}}</td>
+
+<td>{{complaint.title}}</td>
+
+<td>{{complaint.category}}</td>
+
+<td>
+<span [ngClass]="complaint.priority.toLowerCase()">
+{{complaint.priority}}
+</span>
+</td>
+
+<td>{{complaint.description}}</td>
+
+<td>
+
+<img *ngIf="complaint.image"
+[src]="'http://localhost:5000/'+complaint.image"
+width="80">
+
+</td>
+
+<td>
+
+<select
+[value]="complaint.status"
+(change)="changeStatus(complaint._id,$any($event.target).value)"
+>
+
+<option value="Assigned">Assigned</option>
+<option value="In Progress">In Progress</option>
+<option value="Completed">Completed</option>
+
+</select>
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+<p *ngIf="complaints.length===0">
+No complaints assigned
+</p>
 
 </div>

@@ -77,3 +77,61 @@ nav a:hover {
   text-align: center;
   padding: 12px;
 }
+.wrapper{
+  display:flex;
+  flex-direction:column;
+  min-height:100vh;
+}
+
+/* HEADER */
+
+.header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:15px 40px;
+  background:#1e293b;
+  color:white;
+}
+
+.logo-box{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  cursor:pointer;
+}
+
+.logo-img{
+  height:40px;
+}
+
+nav a{
+  margin-left:20px;
+  color:white;
+  text-decoration:none;
+  font-weight:500;
+}
+
+nav a:hover{
+  color:#38bdf8;
+}
+
+.logout{
+  color:#ef4444;
+}
+
+/* CONTENT */
+
+.main-content{
+  flex:1;
+  padding:30px;
+}
+
+/* FOOTER */
+
+.footer{
+  background:#1e293b;
+  color:white;
+  text-align:center;
+  padding:10px;
+}

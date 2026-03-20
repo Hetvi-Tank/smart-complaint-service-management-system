@@ -1,0 +1,43 @@
+<div class="container">
+
+<h2>My Complaints</h2>
+
+<p *ngIf="message">{{message}}</p>
+
+<div *ngIf="complaints.length > 0">
+
+  <table>
+
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Category</th>
+        <th>Priority</th>
+        <th>Status</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+
+    <tbody>
+
+      <tr *ngFor="let c of complaints">
+
+        <td>{{c.title}}</td>
+        <td>{{c.category}}</td>
+        <td>{{c.priority}}</td>
+        <td>
+          <span class="status" [ngClass]="c.status">
+            {{c.status}}
+          </span>
+        </td>
+        <td>{{c.createdAt | date}}</td>
+
+      </tr>
+
+    </tbody>
+
+  </table>
+
+</div>
+
+</div>

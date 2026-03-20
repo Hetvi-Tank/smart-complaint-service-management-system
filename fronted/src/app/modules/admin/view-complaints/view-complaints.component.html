@@ -1,0 +1,32 @@
+<h2>All Complaints</h2>
+
+<div class="table-container">
+
+<table>
+
+<tr>
+  <th>Title</th>
+  <th>Description</th>
+  <th>Category</th>
+  <th>Priority</th>
+  <th>City</th>
+  <th>Image</th>
+</tr>
+
+<tr *ngFor="let c of complaints">
+
+  <td>{{c.title}}</td>
+  <td>{{c.description}}</td>
+  <td>{{c.category}}</td>
+  <td>{{c.priority}}</td>
+  <td>{{c.city}}</td>
+
+  <td>
+  <img *ngIf="c.image" [src]="c.image" width="80">
+</td>
+
+</tr>
+
+</table>
+
+</div>

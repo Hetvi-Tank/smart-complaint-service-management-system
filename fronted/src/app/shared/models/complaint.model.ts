@@ -1,8 +1,25 @@
 export interface Complaint {
-  id?: string;
+
+  _id?: string;
+
   title: string;
-  description: string;
+
+  description?: string;
+
+  category: string;
+
+  priority: string;
+
+  address?: string;
+
+  area?: string;
+
+  city?: string;
+
+  image?: string;
+
   status?: string;
-  userId?: string;
-  assignedTo?: string;
+
+  createdAt?: string;
+
 }

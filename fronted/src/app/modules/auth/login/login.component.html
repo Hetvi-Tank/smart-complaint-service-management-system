@@ -1,32 +1,50 @@
 <div class="auth-wrapper">
 
-  <div class="auth-card">
+    <div class="auth-card">
 
-    <h2>Login</h2>
+      <h1><b>SignIn</b></h1>
+      <br/>
 
-    <form>
+      <form (ngSubmit)="login()">
 
-      <div class="form-group">
-        <label>Email</label>
-        <input type="email" [(ngModel)]="form.email" name="email">
-      </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email"
+                 [(ngModel)]="form.email"
+                 name="email"
+                 required>
+        </div>
+<div class="form-group">
+  <label>Password</label>
 
-      <div class="form-group">
-        <label>Password</label>
-        <input type="password" [(ngModel)]="form.password" name="password">
-      </div>
+  <input
+    [type]="showPassword ? 'text' : 'password'"
+    [(ngModel)]="form.password"
+    name="password"
+    required>
 
-      <button type="submit" class="btn-primary">
-        Login
-      </button>
-
-    </form>
-
-    <div class="switch-text">
-      Don't have an account?
-      <a routerLink="/register">Register</a>
-    </div>
-    
+  <div class="show-pass">
+    <input type="checkbox" (change)="togglePassword()">
+    <label>Show Password</label>
   </div>
 
 </div>
+        <button type="submit" class="btn-primary">
+          Login
+        </button>
+
+      </form>
+
+      <p style="color:red; text-align:center; margin-top:10px;">
+        {{ message }}
+      </p>
+
+      <div class="switch-text">
+        Don't have an account?
+        <a routerLink="/register">Register</a><br/>
+    </div>
+    <br/>
+      <span>If you are Techniqcision then must contact Admin for Login</span> 
+    </div>
+
+  </div>
