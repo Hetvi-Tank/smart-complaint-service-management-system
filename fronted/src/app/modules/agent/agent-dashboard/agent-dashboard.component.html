@@ -1,51 +1,119 @@
-<div class="dashboard-wrapper">
+<div class="dashboard">
 
-  <div class="dashboard-container">
+  <!-- HEADER -->
+  <div class="topbar">
+    <h2>Agent Dashboard</h2>
+    <span class="welcome">Welcome, {{agentName}}</span>
+  </div>
 
-    <!-- Header -->
-    <div class="dashboard-header">
-      <h2>Welcome, {{ agentName }}</h2>
-      <button (click)="logout()" class="logout-btn">Logout</button>
-    </div>
+  <!-- STATS CARDS -->
+  <div class="stats">
 
-    <!-- Stats Section -->
-    <div class="stats-section">
-      <div class="stat-card">
-        <h4>Total Assigned</h4>
-        <p>{{ totalAssigned }}</p>
-      </div>
-
-      <div class="stat-card">
-        <h4>In Progress</h4>
-        <p>{{ inProgress }}</p>
-      </div>
-
-      <div class="stat-card">
-        <h4>Completed</h4>
-        <p>{{ completed }}</p>
+    <div class="card">
+      <div class="card-icon total">📊</div>
+      <div>
+        <p>Total Assigned</p>
+        <h3>{{totalAssigned}}</h3>
       </div>
     </div>
 
-    <!-- Actions Section -->
-    <div class="actions-section">
-
-      <button routerLink="/agent/assigned" class="action-btn">
-        View Assigned Complaints
-      </button>
-
-      <button routerLink="/agent/change-password" class="action-btn">
-        Change Password
-      </button>
-
-      <button routerLink="/agent/profile" class="action-btn">
-        View Profile
-      </button>
-
-      <button routerLink="/agent/history" class="action-btn">
-        Complaint History
-      </button>
-
+    <div class="card">
+      <div class="card-icon progress">⏳</div>
+      <div>
+        <p>In Progress</p>
+        <h3>{{inProgress}}</h3>
+      </div>
     </div>
+
+    <div class="card">
+      <div class="card-icon done">✅</div>
+      <div>
+        <p>Completed</p>
+        <h3>{{completed}}</h3>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- TABLE SECTION -->
+  <div class="table-section">
+
+    <div class="table-header">
+      <h3>Assigned Complaints</h3>
+    </div>
+
+    <table *ngIf="complaints.length > 0">
+
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Category</th>
+          <th>Priority</th>
+          <th>Status</th>
+          <th>City</th>
+          <th>Image</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let c of complaints">
+
+          <td>{{c.title}}</td>
+          <td>{{c.category}}</td>
+
+          <td>
+            <span class="priority" [ngClass]="c.priority.toLowerCase()">
+              {{c.priority}}
+            </span>
+          </td>
+
+          <td>
+            <span class="status"
+              [ngClass]="{
+                'pending': c.status === 'Pending',
+                'progress': c.status === 'In Progress',
+                'completed': c.status === 'Completed'
+              }">
+              {{c.status}}
+            </span>
+          </td>
+
+          <td>{{c.city}}</td>
+
+          <td>
+            <img *ngIf="c.image" [src]="c.image" class="img">
+          </td>
+
+          <td>
+            <button class="view-btn" (click)="viewComplaint(c._id)">
+              View
+            </button>
+
+            <!-- ✅ STATUS DROPDOWN -->
+            <select (change)="updateStatus(c._id, $event)">
+              <option value="">Update</option>
+
+              <option *ngIf="c.status === 'Assigned'" value="In Progress">
+                In Progress
+              </option>
+
+              <option *ngIf="c.status === 'In Progress'" value="Completed">
+                Completed
+              </option>
+
+            </select>
+
+          </td>
+
+        </tr>
+      </tbody>
+
+    </table>
+
+    <p *ngIf="complaints.length === 0" class="empty">
+      No complaints assigned
+    </p>
 
   </div>
 

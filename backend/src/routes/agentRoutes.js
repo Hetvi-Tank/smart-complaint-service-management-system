@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const agentController = require("../controllers/agentController");
-const { createAgent, getAssignedComplaints } = require("../controllers/agentController");
+const { createAgent, getAssignedComplaints,getAllAgents } = require("../controllers/agentController");
 const authMiddleware = require("../../middleware/authMiddleware");
 // GET ASSIGNED COMPLAINTS
 router.get(
@@ -11,6 +11,7 @@ router.get(
 );
 // // 🔹 Admin creates agent
  router.post("/create", createAgent);
+ router.get("/all", agentController.getAllAgents);
 
 // UPDATE STATUS
 router.put(

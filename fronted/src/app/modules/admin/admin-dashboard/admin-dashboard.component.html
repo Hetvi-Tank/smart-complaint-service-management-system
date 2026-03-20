@@ -40,7 +40,7 @@
 <th>Status</th>
 <th>City</th>
 <th>image</th>
-<th>Action</th>
+<th>Agent</th>
 </tr>
 </thead>
 
@@ -56,11 +56,12 @@
 <td>
   <img *ngIf="c.image" [src]="c.image" width="80">
 </td>
-
 <td>
-<button (click)="viewComplaint(c._id)">
-View
-</button>
+  <!-- {{c.assignedAgent?.name || 'Not Assigned'}} -->
+   <!-- {{c.assignedTo | json}} -->
+    
+  {{c.assignedTo?.name || 'Not Assigned'}}
+
 </td>
 
 </tr>

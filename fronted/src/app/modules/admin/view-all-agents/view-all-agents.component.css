@@ -1,0 +1,53 @@
+.page {
+  padding: 30px;
+  font-family: 'Segoe UI', sans-serif;
+  background: #f4f7fb;
+  min-height: 100vh;
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 26px;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.table-container {
+  width: 95%;
+  margin: auto;
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+th {
+  background: #2563eb;
+  color: white;
+  padding: 12px;
+  text-align: left;
+}
+
+td {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+tr:hover {
+  background: #f1f5ff;
+}
+
+.badge {
+  background: #10b981;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: 12px;
+}

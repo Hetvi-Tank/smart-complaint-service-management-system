@@ -55,7 +55,8 @@ router.post('/create', upload.single('image'), async (req, res) => {
 
     const agent = await User.findOne({
   role: "agent",
-  area: req.body.area
+  area: req.body.area,
+  city: req.body.city
 });
 
     const complaint = new Complaint({
@@ -100,16 +101,33 @@ router.post('/create', upload.single('image'), async (req, res) => {
 
 /* GET ALL COMPLAINTS (ADMIN) */
 
+// router.get('/all', async (req, res) => {
+
+//   try {
+
+//     const complaints = await Complaint.find();
+
+//     res.json(complaints);
+
+//   } catch (err) {
+
+//     res.status(500).json({ message: "Server Error" });
+
+//   }
+
+// });
+
 router.get('/all', async (req, res) => {
 
   try {
 
-    const complaints = await Complaint.find();
+    const complaints = await Complaint.find()
+  .populate('assignedTo', 'name'); // ✅ correct field // 👈 important
 
     res.json(complaints);
 
   } catch (err) {
-
+    console.log(err);
     res.status(500).json({ message: "Server Error" });
 
   }
@@ -141,6 +159,56 @@ router.get('/my-complaints', async (req, res) => {
   }
 
 });
+/* ================= GET AGENT COMPLAINTS ================= */
 
+router.get('/agent', auth, async (req, res) => {
+
+  try {
+
+    console.log("AGENT ID:", req.user.id);
+
+    const complaints = await Complaint.find({
+      assignedTo: req.user.id
+    });
+
+    console.log("FOUND:", complaints.length);
+
+    res.json(complaints);
+
+  } catch (err) {
+
+    console.log("ERROR:", err);
+
+    res.status(500).json({ message: "Server Error" });
+
+  }
+
+});
+
+/* ================= UPDATE STATUS ================= */
+
+router.put('/update-status/:id', auth, async (req, res) => {
+
+  try {
+
+    const { status } = req.body;
+
+    await Complaint.findByIdAndUpdate(
+      req.params.id,
+      { status }
+    );
+
+    res.json({ message: "Status Updated Successfully" });
+
+  } catch (err) {
+
+    console.log(err);
+
+    res.status(500).json({ message: "Server Error" });
+
+  }
+
+});
 
 module.exports = router;
+

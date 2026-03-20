@@ -3,6 +3,7 @@ const Complaint = require('../models/Complaint');
 const auth = require('../../middleware/authMiddleware');  // ✅ FIXED PATH
 const multer = require('multer');
 const path = require('path');
+const jwt = require('jsonwebtoken');
 
 const router = express.Router();
 
@@ -45,17 +46,51 @@ router.post('/create', auth, upload.single('image'), async (req, res) => {
 
 /* ================= GET AGENT COMPLAINTS ================= */
 
-router.get('/agent', auth, async (req, res) => {
+// router.get('/agent', auth, async (req, res) => {
+
+//   try {
+
+//     const complaints = await Complaint.find({ agent: req.user.id })
+//       .populate('user', 'name');
+
+//     res.json(complaints);
+
+//   } catch (err) {
+//     res.status(500).json({ message: "Server Error" });
+//   }
+
+// });
+
+//* ================= GET AGENT COMPLAINTS ================= */
+
+router.get('/agent', async (req, res) => {
 
   try {
 
-    const complaints = await Complaint.find({ agent: req.user.id })
-      .populate('user', 'name');
+    const token = req.headers.authorization?.split(" ")[1];
+
+    if (!token) {
+      return res.status(401).json({ message: "No token" });
+    }
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    console.log("AGENT ID:", decoded.id);   // ✅ DEBUG
+
+    const complaints = await Complaint.find({
+      assignedTo: decoded.id
+    });
+
+    console.log("FOUND:", complaints.length); // ✅ DEBUG
 
     res.json(complaints);
 
   } catch (err) {
+
+    console.log("ERROR:", err);   // ✅ DEBUG
+
     res.status(500).json({ message: "Server Error" });
+
   }
 
 });

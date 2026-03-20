@@ -58,6 +58,17 @@ export const routes: Routes = [
  path:'view-customers',
  loadComponent:()=>import('./modules/admin/view-customers/view-customers.component')
  .then(m=>m.ViewComplaintComponent)
+},
+{
+      path: 'view-agents', 
+      loadComponent: () =>
+        import('./modules/admin/view-all-agents/view-all-agents.component')
+          .then(m => m.ViewAllAgentsComponent)
+    },
+    {
+ path:'view-users',
+ loadComponent:()=>import('./modules/admin/view-users/view-users.component')
+ .then(m=>m.ViewUsersComponent)
 }
     ]
   },

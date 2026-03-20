@@ -45,22 +45,22 @@ this.agents=data;
 
 }
 
-// assignAgent(complaintId:any,agentId:any){
+assignAgent(complaintId:any,agentId:any){
 
-// const data={
-// complaintId:complaintId,
-// agentId:agentId
-// }
+const data={
+complaintId:complaintId,
+agentId:agentId
+}
 
-// this.complaintService.assignComplaint(data)
-// .subscribe((res:any)=>{
+this.complaintService.assignComplaint(data)
+.subscribe((res:any)=>{
 
-// alert(res.message);
-// this.loadComplaints();
+alert(res.message);
+this.loadComplaints();
 
-// })
+})
 
-// }
+}
 
 viewComplaint(id:any){
 

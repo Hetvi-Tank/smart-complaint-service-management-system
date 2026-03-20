@@ -1,0 +1,33 @@
+<div class="page">
+
+<h2 class="title">All Agents</h2>
+
+<div class="table-container">
+
+<table>
+
+<tr>
+  <th>Name</th>
+  <th>Email</th>
+  <th>Phone</th>
+  <th>Category</th>
+  <th>City</th>
+</tr>
+
+<tr *ngFor="let a of agents">
+
+  <td>{{a.name}}</td>
+  <td>{{a.email}}</td>
+  <td>{{a.phone}}</td>
+  <td>
+    <span class="badge">{{a.category}}</span>
+  </td>
+  <td>{{a.city}}</td>
+
+</tr>
+
+</table>
+
+</div>
+
+</div>

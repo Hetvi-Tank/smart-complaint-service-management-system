@@ -1,0 +1,35 @@
+<div class="page">
+
+  <h2 class="title">All Users</h2>
+
+  <table *ngIf="users.length > 0" class="user-table">
+
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Area</th>
+        <th>City</th>
+      </tr>
+    </thead>
+
+    <tbody>
+
+      <tr *ngFor="let u of users">
+        <td>{{u.name}}</td>
+        <td>{{u.email}}</td>
+        <td>{{u.phone || '-'}}</td>
+        <td>{{u.area || '-'}}</td>
+        <td>{{u.city || '-'}}</td>
+      </tr>
+
+    </tbody>
+
+  </table>
+
+  <p *ngIf="users.length === 0" class="no-data">
+    No users found
+  </p>
+
+</div>

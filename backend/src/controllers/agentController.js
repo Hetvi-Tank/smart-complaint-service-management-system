@@ -39,34 +39,79 @@ async function sendEmail(to, password) {
 }
 
 // 🚀 Create Agent Controller
+// exports.createAgent = async (req, res) => {
+//   try {
+
+//     const { name, phone, category, gender } = req.body;
+// const email = req.body.email.toLowerCase();
+
+//     if (!name || !email || !phone || !category || !gender) {
+//       return res.status(400).json({ message: "All fields are required" });
+//     }
+
+//    const existingAgent = await User.findOne({ email });
+//     if (existingAgent) {
+//       return res.status(400).json({ message: "Email already exists" });
+//     }
+
+//     const randomPassword = generateRandomPassword();
+
+//     const hashedPassword = await bcrypt.hash(randomPassword, 10);
+
+// const newAgent = new User({
+//   name,
+//   email,
+//   phone,
+//   category,
+//   gender,
+//   password: hashedPassword,
+//   role: "agent"
+// });
+
+//     await newAgent.save();
+
+//     await sendEmail(email, randomPassword);
+
+//     res.status(201).json({
+//       message: "Agent created successfully & email sent!"
+//     });
+
+//   } catch (error) {
+//     res.status(500).json({ message: error.message });
+//   }
+// };
 exports.createAgent = async (req, res) => {
   try {
 
-    const { name, phone, category, gender } = req.body;
-const email = req.body.email.toLowerCase();
+    // ✅ ADD city, area, address
+    const { name, phone, category, gender, address, area, city } = req.body;
+    const email = req.body.email.toLowerCase();
 
     if (!name || !email || !phone || !category || !gender) {
       return res.status(400).json({ message: "All fields are required" });
     }
 
-   const existingAgent = await User.findOne({ email });
+    const existingAgent = await User.findOne({ email });
     if (existingAgent) {
       return res.status(400).json({ message: "Email already exists" });
     }
 
     const randomPassword = generateRandomPassword();
-
     const hashedPassword = await bcrypt.hash(randomPassword, 10);
 
-const newAgent = new User({
-  name,
-  email,
-  phone,
-  category,
-  gender,
-  password: hashedPassword,
-  role: "agent"
-});
+    // ✅ ADD city, area, address here
+    const newAgent = new User({
+      name,
+      email,
+      phone,
+      category,
+      gender,
+      address,
+      area,
+      city,
+      password: hashedPassword,
+      role: "agent"
+    });
 
     await newAgent.save();
 
@@ -77,6 +122,7 @@ const newAgent = new User({
     });
 
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: error.message });
   }
 };
@@ -131,5 +177,19 @@ exports.updateStatus = async (req, res) => {
       message: error.message
     });
 
+  }
+};
+
+// 🔹 GET ALL AGENTS (NEW ADD)
+exports.getAllAgents = async (req, res) => {
+  try {
+
+    const agents = await User.find({ role: "agent" })
+      .select("-password");
+
+    res.json(agents);
+
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 };
