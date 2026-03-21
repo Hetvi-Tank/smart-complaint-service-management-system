@@ -41,6 +41,8 @@
 <th>City</th>
 <th>image</th>
 <th>Agent</th>
+<th>Report</th>
+<th>Feedback</th>
 </tr>
 </thead>
 
@@ -63,7 +65,26 @@
   {{c.assignedTo?.name || 'Not Assigned'}}
 
 </td>
+<td>
+  <button (click)="viewReport(c._id)">
+  View Report
+</button>
+</td>
+<!-- ✅ FEEDBACK COLUMN -->
+<td>
 
+  <!-- 🔹 Show feedback -->
+  <div *ngIf="c.feedback?.rating" class="feedback-card">
+    ⭐ {{c.feedback.rating}} / 5
+    <div class="comment">{{c.feedback.comment}}</div>
+  </div>
+
+  <!-- 🔹 No feedback -->
+  <div *ngIf="!c.feedback?.rating" class="no-feedback">
+    --Work is Not Done--
+  </div>
+
+</td>
 </tr>
 
 </tbody>

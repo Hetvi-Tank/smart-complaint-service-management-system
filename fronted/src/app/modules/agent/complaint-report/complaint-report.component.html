@@ -1,0 +1,29 @@
+<div class="report-container">
+
+  <h2>Submit Work Report</h2>
+
+  <form (ngSubmit)="submitReport()" enctype="multipart/form-data">
+
+    <label>Work Description</label>
+    <textarea [(ngModel)]="report.workDescription" name="workDescription" required></textarea>
+
+    <label>Material Used</label>
+    <input type="text" [(ngModel)]="report.materialUsed" name="materialUsed" required>
+
+    <label>Completion Date</label>
+    <input type="date" [(ngModel)]="report.completionDate" name="completionDate" required>
+
+    <label>Progress (0-100%)</label>
+    <input type="number" [(ngModel)]="report.progress" name="progress" min="0" max="100" required>
+
+    <label>Upload Work Photo</label>
+    <input type="file" (change)="onFileChange($event)" required>
+
+    <label>Final Remark</label>
+    <textarea [(ngModel)]="report.finalRemark" name="finalRemark" required></textarea>
+
+    <button type="submit">Submit Report</button>
+
+  </form>
+
+</div>

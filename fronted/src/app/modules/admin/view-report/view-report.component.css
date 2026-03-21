@@ -1,0 +1,32 @@
+.report-container {
+  padding: 25px;
+  background: #f4f7fb;
+  min-height: 100vh;
+}
+
+.report-container h2 {
+  margin-bottom: 20px;
+  color: #1e293b;
+}
+
+.report-card {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+.report-card p {
+  margin-bottom: 12px;
+  font-size: 15px;
+}
+
+.image-section {
+  margin-top: 15px;
+}
+
+.image-section img {
+  max-width: 300px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}

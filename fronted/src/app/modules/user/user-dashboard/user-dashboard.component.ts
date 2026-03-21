@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { Router } from '@angular/router';
 
+
 @Component({
   selector: 'app-user-dashboard',
   standalone: true,
@@ -43,6 +44,10 @@ export class UserDashboardComponent implements OnInit {
     this.loadComplaints();
 
   }
+
+  viewReport(id: any) {
+  this.router.navigate(['/user/view-report', id]);
+}
 
   loadComplaints() {
 
@@ -84,5 +89,27 @@ export class UserDashboardComponent implements OnInit {
     });
 
   }
+  // ✅ NEW: FEEDBACK FUNCTION
+ submitFeedback(id: any, rating: any, comment: any) {
+
+  const token = localStorage.getItem("token");
+
+  const headers = {
+    Authorization: `Bearer ${token}`
+  };
+
+  this.http.put(
+    `http://localhost:5000/api/complaints/feedback/${id}`,
+    { rating, comment },
+    { headers }
+  ).subscribe(() => {
+
+    alert("Feedback Submitted");
+
+    this.loadComplaints();
+
+  });
+
+}
 
 }

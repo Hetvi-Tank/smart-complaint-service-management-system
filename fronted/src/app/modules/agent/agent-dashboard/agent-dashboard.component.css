@@ -183,3 +183,7 @@ select {
   padding: 20px;
   color: #888;
 }
+.view-btn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}

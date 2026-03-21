@@ -1,4 +1,4 @@
-<div class="page">
+<!-- <div class="page">
 
 <h2 class="title">All Agents</h2>
 
@@ -27,6 +27,76 @@
 </tr>
 
 </table>
+
+</div>
+
+</div> -->
+<div class="page">
+
+<h2 class="title">All Agents</h2>
+
+<div class="table-container">
+
+<table>
+
+<tr>
+  <th>Name</th>
+  <th>Email</th>
+  <th>Phone</th>
+  <th>Category</th>
+  <th>City</th>
+  <th>Action</th>
+</tr>
+
+<tr *ngFor="let a of agents">
+
+  <td>{{a.name}}</td>
+  <td>{{a.email}}</td>
+  <td>{{a.phone}}</td>
+
+  <td><span class="badge">{{a.category}}</span></td>
+
+  <td>{{a.city}}</td>
+
+  <td class="actions">
+
+    <!-- EDIT -->
+    <span class="edit"
+      [class.disabled]="a.isAssigned"
+      (click)="!a.isAssigned && editAgent(a)">
+      ✏️
+    </span>
+
+    <!-- DELETE -->
+    <span class="delete"
+      [class.disabled]="a.isAssigned"
+      (click)="!a.isAssigned && deleteAgent(a._id)">
+      🗑️
+    </span>
+
+  </td>
+
+</tr>
+
+</table>
+
+</div>
+
+<!-- EDIT FORM -->
+<div *ngIf="selectedAgent" class="edit-form">
+
+  <h3>Edit Agent</h3>
+
+  <input [(ngModel)]="selectedAgent.name" placeholder="Name">
+  <input [(ngModel)]="selectedAgent.email" placeholder="Email">
+  <input [(ngModel)]="selectedAgent.phone" placeholder="Phone">
+  <input [(ngModel)]="selectedAgent.category" placeholder="Category">
+  <input [(ngModel)]="selectedAgent.city" placeholder="City">
+
+  <div class="btns">
+    <button (click)="updateAgent()">Update</button>
+    <button (click)="cancelEdit()">Cancel</button>
+  </div>
 
 </div>
 

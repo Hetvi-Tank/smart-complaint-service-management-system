@@ -55,6 +55,7 @@ router.post('/create', upload.single('image'), async (req, res) => {
 
     const agent = await User.findOne({
   role: "agent",
+  category: req.body.category,
   area: req.body.area,
   city: req.body.city
 });
@@ -204,6 +205,35 @@ router.put('/update-status/:id', auth, async (req, res) => {
 
     console.log(err);
 
+    res.status(500).json({ message: "Server Error" });
+
+  }
+
+});
+
+/* ================= ADD FEEDBACK ================= */
+
+router.put('/feedback/:id', auth, async (req, res) => {
+
+  try {
+
+    const { rating, comment } = req.body;
+
+    await Complaint.findByIdAndUpdate(
+      req.params.id,
+      {
+        feedback: {
+          rating: rating || null,
+          comment: comment || ""
+        }
+      }
+    );
+
+    res.json({ message: "Feedback Submitted Successfully" });
+
+  } catch (err) {
+
+    console.log(err);
     res.status(500).json({ message: "Server Error" });
 
   }

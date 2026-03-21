@@ -86,8 +86,14 @@
           </td>
 
           <td>
-            <button class="view-btn" (click)="viewComplaint(c._id)">
-              View
+            <button 
+              class="view-btn"
+              [disabled]="c.status === 'Completed'"
+              *ngIf="c.status !== 'Assigned'"
+              (click)="goToReport(c._id)">
+              
+              {{ c.status === 'Completed' ? 'Report Submitted' : 'Report' }}
+
             </button>
 
             <!-- ✅ STATUS DROPDOWN -->

@@ -59,6 +59,8 @@ Logout
 <th>Priority</th>
 <th>Status</th>
 <th>City</th>
+<th>Report</th>
+<th>Feedback</th>
 </tr>
 
 </thead>
@@ -84,7 +86,63 @@ Logout
 </td>
 
 <td>{{c.city || 'N/A'}}</td>
+<td>
+  <button 
+  class="view-btn"
+  *ngIf="c.status === 'in progress'|| 'complated'"
+  (click)="viewReport(c._id)">
+  View
+</button>
+</td>
+<td>
+<!-- ✅ COMPLETED & NOT GIVEN -->
+  <div *ngIf="c.status === 'Completed' && !c.feedback?.rating" class="feedback-box">
 
+    <select #rating class="feedback-select">
+      <option value="">⭐</option>
+      <option value="1">1 ⭐</option>
+      <option value="2">2 ⭐</option>
+      <option value="3">3 ⭐</option>
+      <option value="4">4 ⭐</option>
+      <option value="5">5 ⭐</option>
+    </select>
+
+    <input type="text" #comment placeholder="Write feedback..." class="feedback-input">
+
+    <button class="feedback-btn"
+      (click)="submitFeedback(c._id, rating.value, comment.value)">
+      ✔
+    </button>
+
+  </div>
+
+  <!-- ✅ ALREADY SUBMITTED (PROPER DESIGN) -->
+  <div *ngIf="c.feedback?.rating" class="feedback-card">
+
+    <div class="stars">
+      ⭐ {{c.feedback.rating}} / 5
+    </div>
+
+    <div class="comment">
+      "{{c.feedback.comment}}"
+    </div>
+
+  </div>
+
+  <!-- ✅ NOT COMPLETED → DISABLED LOOK -->
+  <div *ngIf="c.status !== 'Completed'" class="feedback-disabled-box">
+
+    <select disabled class="feedback-select disabled">
+      <option>⭐</option>
+    </select>
+
+    <input disabled type="text" placeholder="Complete first..." class="feedback-input disabled">
+
+    <button disabled class="feedback-btn disabled">
+      ✔
+    </button>
+
+  </div></td>
 </tr>
 
 </tbody>

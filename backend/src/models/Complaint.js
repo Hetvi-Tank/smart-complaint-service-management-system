@@ -82,7 +82,17 @@ const complaintSchema = new mongoose.Schema({
     type: String,
     enum: ["Pending", "Assigned", "In Progress", "Completed"],
     default: "Pending"
+  },
+  feedback: {
+  rating: {
+    type: Number,
+    default: null
+  },
+  comment: {
+    type: String,
+    default: ""
   }
+}
 
 }, { timestamps: true });
 

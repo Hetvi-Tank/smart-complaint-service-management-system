@@ -60,3 +60,39 @@ margin-bottom:10px;
     border-radius: 8px;
     border: 1px solid #ccc;
 }
+
+/* 🔥 FEEDBACK COLUMN FIX */
+td:last-child {
+  width: 160px;
+}
+
+/* FEEDBACK CARD */
+.feedback-card {
+  background: #f4f8ff;
+  border-left: 4px solid #4e73df;
+  padding: 6px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  width: 100%;
+}
+
+/* RATING */
+.feedback-card {
+  font-weight: 500;
+  color: #4e73df;
+}
+
+/* COMMENT */
+.feedback-card .comment {
+  font-size: 11px;
+  color: #555;
+  margin-top: 3px;
+  word-break: break-word;
+}
+
+/* NO FEEDBACK */
+.no-feedback {
+  color: #bbb;
+  font-size: 16px;
+  text-align: center;
+}

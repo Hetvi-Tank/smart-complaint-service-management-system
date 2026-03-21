@@ -50,5 +50,8 @@ export class AdminDashboardComponent implements OnInit {
   viewComplaint(id:any){
     this.router.navigate(['/admin/view-complaint',id]);
   }
+  viewReport(id: any) {
+  this.router.navigate(['/admin/view-report', id]);
+}
 
 }

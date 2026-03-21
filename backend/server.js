@@ -8,6 +8,8 @@ const authRoutes = require('./src/routes/authRoutes');
 const complaintRoutes = require('./src/routes/complaintRoutes');
 const agentRoutes = require('./src/routes/agentRoutes'); // ✅ FIXED
 const adminRoutes = require('./src/routes/adminRoutes');
+const auth = require('./middleware/authMiddleware');
+const reportRoutes = require('./src/routes/reportRoutes');
 
 const app = express();
 
@@ -19,6 +21,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/complaints', complaintRoutes);
 app.use('/api/agents', agentRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/reports', reportRoutes);
 
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB Connected"))

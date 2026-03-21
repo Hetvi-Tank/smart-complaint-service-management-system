@@ -146,10 +146,9 @@ export class AgentDashboardComponent implements OnInit {
 
   }
 
-  viewComplaint(id: any) {
-    this.router.navigate(['/agent/view', id]);
-  }
-
+goToReport(id: any) {
+  this.router.navigate(['/agent/complaint-report', id]);
+}
   logout() {
     localStorage.clear();
     this.router.navigate(['/login']);

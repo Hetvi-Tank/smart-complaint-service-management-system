@@ -1,0 +1,25 @@
+<div class="report-container" *ngIf="report">
+
+  <h2>Complaint Report</h2>
+
+  <div class="report-card">
+
+    <p><strong>Work Description:</strong> {{report.workDescription}}</p>
+
+    <p><strong>Material Used:</strong> {{report.materialUsed}}</p>
+
+    <p><strong>Completion Date:</strong> {{report.completionDate | date}}</p>
+
+    <p><strong>Progress:</strong> {{report.progress}}%</p>
+
+    <p><strong>Final Remark:</strong> {{report.finalRemark}}</p>
+
+    <div class="image-section">
+      <img *ngIf="report.photo" [src]="report.photo">
+    </div>
+
+  </div>
+
+</div>
+
+<p *ngIf="!report">No Report Available</p>

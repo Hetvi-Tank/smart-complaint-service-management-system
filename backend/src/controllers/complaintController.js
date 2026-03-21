@@ -132,5 +132,28 @@ router.put('/update-status/:id', auth, async (req, res) => {
   }
 
 });
+exports.addFeedback = async (req, res) => {
+  try {
+
+    const { rating, comment } = req.body;
+
+    // ❗ Optional → check nathi karvanu compulsory
+    await Complaint.findByIdAndUpdate(
+      req.params.id,
+      {
+        feedback: {
+          rating: rating || null,
+          comment: comment || ""
+        }
+      }
+    );
+
+    res.json({ message: "Feedback Submitted" });
+
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: "Server Error" });
+  }
+};
 
 module.exports = router;

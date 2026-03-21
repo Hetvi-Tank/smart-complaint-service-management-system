@@ -151,3 +151,69 @@ exports.assignComplaint = async (req, res) => {
   }
 
 };
+
+// ✅ UPDATE AGENT
+exports.updateAgent = async (req, res) => {
+
+  try {
+
+    const agentId = req.params.id;
+
+    // ❗ check assigned complaints
+    const assigned = await Complaint.findOne({ assignedTo: agentId });
+
+    if (assigned) {
+      // return res.status(400).json({
+      //   message: "Cannot update assigned agent"
+      // });
+      return res.status(400).json({
+      message: "Agent is already assigned to complaints"
+    });
+    }
+
+    const updated = await User.findByIdAndUpdate(
+      agentId,
+      req.body,
+      { new: true }
+    );
+
+    res.json({
+      message: "Agent Updated",
+      agent: updated
+    });
+
+  } catch (err) {
+
+    console.log(err);
+    res.status(500).json({ message: "Server Error" });
+
+  }
+
+};
+exports.deleteAgent = async (req, res) => {
+  try {
+
+    const agentId = req.params.id;
+
+    // 🔥 CHECK assigned complaints
+    const assigned = await Complaint.findOne({
+      assignedTo: agentId
+    });
+
+    if (assigned) {
+      return res.status(400).json({
+        message: "Agent is assigned to complaints, cannot delete"
+      });
+    }
+
+    await User.findByIdAndDelete(agentId);
+
+    res.json({ message: "Agent Deleted Successfully" });
+
+  } catch (err) {
+
+    console.log(err);
+    res.status(500).json({ message: "Server Error" });
+
+  }
+};

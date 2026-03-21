@@ -69,6 +69,12 @@ export const routes: Routes = [
  path:'view-users',
  loadComponent:()=>import('./modules/admin/view-users/view-users.component')
  .then(m=>m.ViewUsersComponent)
+},
+{
+  path: 'view-report/:id',
+  loadComponent: () =>
+    import('./modules/admin/view-report/view-report.component')
+      .then(m => m.ViewReportComponent)
 }
     ]
   },
@@ -92,6 +98,12 @@ export const routes: Routes = [
         import('./modules/agent/assigned-complaints/assigned-complaints.component')
           .then(m => m.AssignedComplaintsComponent)
     },
+    {
+    path: 'complaint-report/:id',
+    loadComponent: () =>
+      import('./modules/agent/complaint-report/complaint-report.component')
+        .then(m => m.ComplaintReportComponent)
+  }
    
   ]
 },
@@ -118,6 +130,12 @@ export const routes: Routes = [
         path:'view-complaints',
         loadComponent:()=>import('./modules/user/view-complaints/view-complaints.component').then(m=>m.ViewComplaintsComponent)
         },
+        {
+  path: 'view-report/:id',
+  loadComponent: () =>
+    import('./modules/user/view-report/view-report.component')
+      .then(m => m.ViewReportComponent)
+}
     ]
   },
 

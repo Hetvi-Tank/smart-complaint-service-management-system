@@ -1,0 +1,26 @@
+<div class="report-box" *ngIf="report">
+
+  <h2>Complaint Update</h2>
+
+  <p><strong>Completion Date:</strong> 
+    {{report.completionDate | date}}
+  </p>
+
+  <p><strong>Progress:</strong></p>
+
+<div class="progress-bar">
+  <div 
+    class="progress-fill" 
+    [style.width.%]="report.progress">
+  </div>
+</div>
+
+<p class="progress-text">{{report.progress}}%</p>
+
+  <p><strong>Remark:</strong> 
+    {{report.finalRemark}}
+  </p>
+
+</div>
+
+<p *ngIf="!report">No update available</p>
