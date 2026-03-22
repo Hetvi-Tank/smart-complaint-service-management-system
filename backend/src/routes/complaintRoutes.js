@@ -56,7 +56,6 @@ router.post('/create', upload.single('image'), async (req, res) => {
     const agent = await User.findOne({
   role: "agent",
   category: req.body.category,
-  area: req.body.area,
   city: req.body.city
 });
 

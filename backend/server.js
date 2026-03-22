@@ -8,7 +8,6 @@ const authRoutes = require('./src/routes/authRoutes');
 const complaintRoutes = require('./src/routes/complaintRoutes');
 const agentRoutes = require('./src/routes/agentRoutes'); // ✅ FIXED
 const adminRoutes = require('./src/routes/adminRoutes');
-const auth = require('./middleware/authMiddleware');
 const reportRoutes = require('./src/routes/reportRoutes');
 
 const app = express();
