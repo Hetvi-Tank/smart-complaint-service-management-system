@@ -53,11 +53,11 @@ router.post('/create', upload.single('image'), async (req, res) => {
     const token = req.headers.authorization?.split(" ")[1];
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    const agent = await User.findOne({
-  role: "agent",
-  category: req.body.category,
-  city: req.body.city
-});
+//     const agent = await User.findOne({
+//   role: "agent",
+//   category: req.body.category,
+//   city: req.body.city
+// });
 
     const complaint = new Complaint({
       title: req.body.title,
@@ -70,19 +70,22 @@ router.post('/create', upload.single('image'), async (req, res) => {
       image: req.file ? req.file.path : null,
       user: decoded.id,
       // 👇 AUTO ASSIGN
-  assignedTo: agent ? agent._id : null,
+  // assignedTo: agent ? agent._id : null,
 
-  // 👇 STATUS CHANGE
-  status: agent ? "Assigned" : "Pending"
+  // // 👇 STATUS CHANGE
+  // status: agent ? "Assigned" : "Pending"
+  assignedTo: null,
+status: "Pending"
     });
 
     await complaint.save();
 
     res.json({
       success: true,
-      message: agent
-    ? "Complaint submitted & auto-assigned ✅"
-    : "Complaint submitted but no agent available ⚠️"
+    //   message: agent
+    // ? "Complaint submitted & auto-assigned ✅"
+    // : "Complaint submitted but no agent available ⚠️"
+    message: "Complaint submitted successfully and waiting for admin assignment"
     });
 
   } catch (err) {

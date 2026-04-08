@@ -1,4 +1,4 @@
-<h2>All Complaints</h2>
+<!-- <h2>All Complaints</h2>
 
 <table>
 
@@ -44,4 +44,90 @@ View
 
 </tr>
 
+</table> -->
+
+<!-- ALL COMPLAINTS TABLE -->
+
+<h3 class="table-title">All Complaints</h3>
+
+<table *ngIf="complaints.length>0">
+
+<thead>
+<tr>
+<th>Title</th>
+<th>Category</th>
+<th>Priority</th>
+<th>Status</th>
+<th>City</th>
+<th>image</th>
+<th>Agent</th>
+<th>Report</th>
+<th>Feedback</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr *ngFor="let c of complaints">
+
+<td>{{c.title}}</td>
+<td>{{c.category}}</td>
+<td>{{c.priority}}</td>
+<td>{{c.status}}</td>
+<td>{{c.city}}</td>
+<td>
+  <img *ngIf="c.image" [src]="c.image" width="80">
+</td>
+<td>
+  <!-- {{c.assignedAgent?.name || 'Not Assigned'}} -->
+   <!-- {{c.assignedTo | json}} -->
+    
+  <!-- {{c.assignedTo?.name || 'Not Assigned'}} -->
+  <select 
+  (change)="assignAgent(c._id,$any($event.target).value)"
+  [disabled]="c.status !== 'Pending'">
+
+<option value="">Select Agent</option>
+
+<option 
+  *ngFor="let a of getFilteredAgents(c)" 
+  [value]="a._id"
+  [disabled]="isAgentBusy(a._id)">
+
+{{a.name}} ({{ isAgentBusy(a._id) ? 'Busy' : 'Free' }})
+
+</option>
+
+</select>
+
+</td>
+<td>
+  <button (click)="viewReport(c._id)">
+  View Report
+</button>
+</td>
+<!-- ✅ FEEDBACK COLUMN -->
+<td>
+
+  <!-- 🔹 Show feedback -->
+  <div *ngIf="c.feedback?.rating" class="feedback-card">
+    ⭐ {{c.feedback.rating}} / 5
+    <div class="comment">{{c.feedback.comment}}</div>
+  </div>
+
+  <!-- 🔹 No feedback -->
+  <div *ngIf="!c.feedback?.rating" class="no-feedback">
+    --Work is Not Done--
+  </div>
+
+</td>
+</tr>
+
+</tbody>
+
 </table>
+
+<p *ngIf="complaints.length===0">
+No complaints found
+</p>
+

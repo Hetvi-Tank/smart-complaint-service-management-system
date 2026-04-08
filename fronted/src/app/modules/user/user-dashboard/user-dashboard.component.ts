@@ -26,11 +26,11 @@ export class UserDashboardComponent implements OnInit {
     private router: Router
   ) {}
 
-  logout() {
-    localStorage.clear();
-    alert("Logged out successfully");
-    this.router.navigate(['/login']);
-  }
+  // logout() {
+  //   localStorage.clear();
+  //   alert("Logged out successfully");
+  //   this.router.navigate(['/login']);
+  // }
 
   ngOnInit() {
 
