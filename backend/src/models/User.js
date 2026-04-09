@@ -19,7 +19,12 @@ const userSchema = new mongoose.Schema({
     type: String,
     enum: ["user", "admin", "agent"],
     default: "user"
-  }
+  },
+  status: {
+  type: String,
+  enum: ["Available", "Busy", "Not Available"],
+  default: "Available"
+}
 }, { timestamps: true });
 
 module.exports = mongoose.model("User", userSchema);

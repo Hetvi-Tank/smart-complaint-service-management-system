@@ -1,0 +1,19 @@
+<h2>Apply Leave</h2>
+
+<form (ngSubmit)="submitLeave()">
+
+  <label>Reason</label>
+  <input type="text" [(ngModel)]="leave.reason" name="reason" required>
+
+  <label>Description</label>
+  <textarea [(ngModel)]="leave.description" name="description"></textarea>
+
+  <label>From Date</label>
+  <input type="date" [(ngModel)]="leave.fromDate" name="fromDate" required>
+
+  <label>To Date</label>
+  <input type="date" [(ngModel)]="leave.toDate" name="toDate" required>
+
+  <button type="submit">Submit</button>
+
+</form>

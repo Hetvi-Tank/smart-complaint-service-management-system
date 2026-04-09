@@ -75,6 +75,12 @@ export const routes: Routes = [
   loadComponent: () =>
     import('./modules/admin/view-report/view-report.component')
       .then(m => m.ViewReportComponent)
+},
+{
+path: 'admin-leaves',
+  loadComponent: () =>
+    import('./modules/admin/admin-leaves/admin-leaves.component')
+      .then(m => m.AdminLeavesComponent)
 }
     ]
   },
@@ -103,6 +109,12 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./modules/agent/complaint-report/complaint-report.component')
         .then(m => m.ComplaintReportComponent)
+  },
+  {
+    path: 'agent-leave',
+    loadComponent: () =>
+      import('./modules/agent/agent-leave/agent-leave.component')
+        .then(m => m.AgentLeaveComponent)
   }
    
   ]

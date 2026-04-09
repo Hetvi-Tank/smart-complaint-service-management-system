@@ -10,6 +10,9 @@ const agentRoutes = require('./src/routes/agentRoutes'); // ✅ FIXED
 const adminRoutes = require('./src/routes/adminRoutes');
 const reportRoutes = require('./src/routes/reportRoutes');
 
+const LeaveRequest = require('./src/models/LeaveRequest');
+const User = require('./src/models/User');
+
 const app = express();
 
 app.use(cors());
@@ -22,10 +25,30 @@ app.use('/api/agents', agentRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/reports', reportRoutes);
 
+const checkLeaveStatus = async () => {
+
+  const today = new Date();
+
+  const leaves = await LeaveRequest.find({
+    status: "Approved",
+    toDate: { $lt: today }
+  });
+
+  for(let l of leaves){
+
+    await User.findByIdAndUpdate(l.agent, {
+      status: "Available"
+    });
+
+  }
+
+};
+
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB Connected"))
   .catch(err => console.log("Mongo Error:", err));
 
 app.listen(5000, () => {
   console.log("Server running on port 5000");
+    checkLeaveStatus();
 });

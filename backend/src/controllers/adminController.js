@@ -103,6 +103,55 @@ exports.getAgents = async (req, res) => {
 
 
 // ASSIGN COMPLAINT TO AGENT
+// exports.assignComplaint = async (req, res) => {
+
+//   try {
+
+//     const { complaintId, agentId } = req.body;
+
+//     if (!complaintId || !agentId) {
+//       return res.status(400).json({
+//         message: "ComplaintId and AgentId required"
+//       });
+//     }
+
+//     const complaint = await Complaint.findByIdAndUpdate(
+
+//       complaintId,
+
+//       {
+//         assignedTo: agentId,
+//         status: "Assigned"
+//       },
+
+//       {
+//         new: true,
+//         runValidators: false
+//       }
+
+//     );
+
+//     if (!complaint) {
+//       return res.status(404).json({
+//         message: "Complaint not found"
+//       });
+//     }
+
+//     res.json({
+//       message: "Complaint assigned successfully",
+//       complaint
+//     });
+
+//   } catch (error) {
+
+//     res.status(500).json({
+//       message: error.message
+//     });
+
+//   }
+
+// };
+
 exports.assignComplaint = async (req, res) => {
 
   try {
@@ -115,27 +164,47 @@ exports.assignComplaint = async (req, res) => {
       });
     }
 
-    const complaint = await Complaint.findByIdAndUpdate(
-
-      complaintId,
-
-      {
-        assignedTo: agentId,
-        status: "Assigned"
-      },
-
-      {
-        new: true,
-        runValidators: false
-      }
-
-    );
+    // 🔥 complaint find karo
+    const complaint = await Complaint.findById(complaintId);
 
     if (!complaint) {
       return res.status(404).json({
         message: "Complaint not found"
       });
     }
+
+    // ❌ already assigned check
+    if (complaint.status !== "Pending") {
+      return res.status(400).json({
+        message: "Only Pending complaints can be assigned"
+      });
+    }
+
+    // 🔥 agent find karo
+    const agent = await User.findById(agentId);
+
+    if (!agent) {
+      return res.status(404).json({
+        message: "Agent not found"
+      });
+    }
+
+    // ❌ agent availability check
+    if (agent.status !== "Available") {
+      return res.status(400).json({
+        message: "Agent is not available"
+      });
+    }
+
+    // ✅ assign complaint
+    complaint.assignedTo = agentId;
+    complaint.status = "Assigned";
+    await complaint.save();
+
+    // ✅ agent ko Busy karo
+    await User.findByIdAndUpdate(agentId, {
+      status: "Busy"
+    });
 
     res.json({
       message: "Complaint assigned successfully",

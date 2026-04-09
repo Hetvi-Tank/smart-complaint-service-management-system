@@ -83,7 +83,7 @@ View
    <!-- {{c.assignedTo | json}} -->
     
   <!-- {{c.assignedTo?.name || 'Not Assigned'}} -->
-  <select 
+  <!-- <select 
   (change)="assignAgent(c._id,$any($event.target).value)"
   [disabled]="c.status !== 'Pending'">
 
@@ -97,6 +97,32 @@ View
 {{a.name}} ({{ isAgentBusy(a._id) ? 'Busy' : 'Free' }})
 
 </option>
+
+</select> -->
+
+<select 
+  (change)="assignAgent(c._id,$any($event.target).value)"
+  [disabled]="c.status !== 'Pending'">
+
+  <option value="">Select Agent</option>
+
+  <option 
+    *ngFor="let a of getFilteredAgents(c)" 
+    [value]="a._id"
+    [disabled]="isAgentBusy(a._id) || a.status !== 'Available'">
+
+    {{a.name}} 
+    (
+      {{
+        a.status === 'Not Available' 
+          ? 'On Leave' 
+          : isAgentBusy(a._id) 
+            ? 'Busy' 
+            : 'Free'
+      }}
+    )
+
+  </option>
 
 </select>
 

@@ -190,16 +190,49 @@ router.get('/agent', auth, async (req, res) => {
 
 /* ================= UPDATE STATUS ================= */
 
+// router.put('/update-status/:id', auth, async (req, res) => {
+
+//   try {
+
+//     const { status } = req.body;
+
+//     await Complaint.findByIdAndUpdate(
+//       req.params.id,
+//       { status }
+//     );
+
+//     res.json({ message: "Status Updated Successfully" });
+
+//   } catch (err) {
+
+//     console.log(err);
+
+//     res.status(500).json({ message: "Server Error" });
+
+//   }
+
+// });
+
 router.put('/update-status/:id', auth, async (req, res) => {
 
   try {
 
     const { status } = req.body;
 
-    await Complaint.findByIdAndUpdate(
-      req.params.id,
-      { status }
-    );
+    const complaint = await Complaint.findById(req.params.id);
+
+    // ✅ complaint status update
+    complaint.status = status;
+    await complaint.save();
+
+    // ✅ AGENT FREE KARO JAB COMPLETE HO
+    if(status === "Completed" && complaint.assignedTo){
+
+      await User.findByIdAndUpdate(complaint.assignedTo, {
+        status: "Available"
+      });
+
+    }
 
     res.json({ message: "Status Updated Successfully" });
 
