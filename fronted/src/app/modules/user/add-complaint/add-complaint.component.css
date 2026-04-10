@@ -1,79 +1,126 @@
 .page-wrapper {
-  min-height: 80vh;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg, #4f46e5, #9333ea);
+
+  /* Background image from assets */
+  background: url("/assets/b3.jpg") no-repeat center center/cover;
+
+  position: relative;
   padding: 20px;
 }
 
+/* Dark overlay for professional feel */
+.page-wrapper::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(5px);
+}
+
+/* Glass Card */
 .glass-card {
+  position: relative;
   width: 100%;
   max-width: 450px;
   padding: 35px;
-  border-radius: 15px;
-  backdrop-filter: blur(15px);
-  background: rgba(255, 255, 255, 0.15);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+  border-radius: 18px;
+
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(20px);
+
+  border: 1px solid rgba(255, 255, 255, 0.25);
+
+  box-shadow: 
+    0 10px 40px rgba(0, 0, 0, 0.4),
+    inset 0 0 10px rgba(255,255,255,0.1);
+
   color: white;
   text-align: center;
+
+  transition: 0.4s;
 }
 
+.glass-card:hover {
+  transform: translateY(-5px) scale(1.01);
+}
+
+/* Heading */
 h2 {
-  margin-bottom: 20px;
+  margin-bottom: 25px;
+  font-size: 26px;
+  font-weight: 600;
+  letter-spacing: 1px;
 }
 
+/* Inputs */
 input, textarea, select {
   width: 100%;
   margin-bottom: 15px;
   padding: 12px;
-  border-radius: 8px;
+
+  border-radius: 10px;
   border: none;
   outline: none;
-  background: rgba(255,255,255,0.25);
+
+  background: rgba(255,255,255,0.2);
   color: white;
+
   font-size: 14px;
+  transition: 0.3s;
 }
 
 input::placeholder,
 textarea::placeholder {
-  color: #f3f4f6;
+  color: #e5e7eb;
 }
 
 select option {
   color: black;
 }
 
+/* Focus effect */
 input:focus,
 textarea:focus,
 select:focus {
   background: rgba(255,255,255,0.35);
-  box-shadow: 0 0 0 2px white;
+  box-shadow: 0 0 0 2px #a78bfa;
 }
 
+/* Button */
 button {
   width: 100%;
   padding: 12px;
-  border-radius: 8px;
+  border-radius: 10px;
   border: none;
-  background: white;
-  color: #4f46e5;
+
+  background: linear-gradient(135deg, #6366f1, #a855f7);
+  color: white;
+
   font-weight: 600;
+  letter-spacing: 0.5px;
+
   cursor: pointer;
   transition: 0.3s;
 }
 
 button:hover {
-  background: #f3f4f6;
+  transform: scale(1.03);
+  background: linear-gradient(135deg, #4f46e5, #9333ea);
 }
 
+/* Message */
 .message {
-  margin-top: 10px;
+  margin-top: 12px;
   font-weight: 500;
 }
+
+/* Priority Section */
 .priority-group {
   margin-bottom: 20px;
+  text-align: left;
 }
 
 .priority-label {
@@ -83,7 +130,7 @@ button:hover {
   font-weight: 500;
 }
 
-/* Hide default radio */
+/* Hide radio */
 .priority-options input[type="radio"] {
   display: none;
 }
@@ -91,41 +138,41 @@ button:hover {
 /* Layout */
 .priority-options {
   display: flex;
-  justify-content: space-between;
   gap: 10px;
 }
 
-/* Base label style */
+/* Base */
 .priority-options label {
   flex: 1;
   text-align: center;
   padding: 10px;
-  border-radius: 8px;
+  border-radius: 10px;
+
   cursor: pointer;
   font-weight: 500;
+
   background: rgba(255,255,255,0.2);
   transition: 0.3s;
 }
 
-/* LOW selected */
+/* Selected states */
 #low:checked + label.low {
-  background: #22c55e;
+  background: linear-gradient(135deg, #22c55e, #16a34a);
   color: white;
 }
 
-/* MEDIUM selected */
 #medium:checked + label.medium {
-  background: #f59e0b;
+  background: linear-gradient(135deg, #f59e0b, #d97706);
   color: white;
 }
 
-/* HIGH selected */
 #high:checked + label.high {
-  background: #ef4444;
+  background: linear-gradient(135deg, #ef4444, #dc2626);
   color: white;
 }
 
-/* Hover effect */
+/* Hover */
 .priority-options label:hover {
   background: rgba(255,255,255,0.35);
+  transform: scale(1.05);
 }

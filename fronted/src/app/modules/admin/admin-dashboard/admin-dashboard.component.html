@@ -1,96 +1,55 @@
-<h2>Admin Dashboard</h2>
+<div class="dashboard">
 
-<!-- COUNT CARDS -->
+  <h2 class="title">Admin Dashboard</h2>
 
-<div class="cards">
+  <!-- STATS CARDS -->
+  <div class="cards">
 
-<div class="card total">
-<h3>Total Complaints</h3>
-<p>{{total}}</p>
-</div>
+    <div class="card purple">
+      <h3>Total Complaints</h3>
+      <p>9</p>
+    </div>
 
-<div class="card pending">
-<h3>Pending</h3>
-<p>{{pending}}</p>
-</div>
+    <div class="card orange">
+      <h3>Pending</h3>
+      <p>2</p>
+    </div>
 
-<div class="card assigned">
-<h3>Assigned</h3>
-<p>{{assigned}}</p>
-</div>
+    <div class="card blue">
+      <h3>Assigned</h3>
+      <p>3</p>
+    </div>
 
-<div class="card completed">
-<h3>Completed</h3>
-<p>{{completed}}</p>
-</div>
+    <div class="card green">
+      <h3>Completed</h3>
+      <p>4</p>
+    </div>
 
-</div>
-
-<!-- ALL COMPLAINTS TABLE -->
-
-<h3 class="table-title">All Complaints</h3>
-
-<table *ngIf="complaints.length>0">
-
-<thead>
-<tr>
-<th>Title</th>
-<th>Category</th>
-<th>Priority</th>
-<th>Status</th>
-<th>City</th>
-<th>image</th>
-<th>Agent</th>
-<th>Report</th>
-<th>Feedback</th>
-</tr>
-</thead>
-
-<tbody>
-
-<tr *ngFor="let c of complaints">
-
-<td>{{c.title}}</td>
-<td>{{c.category}}</td>
-<td>{{c.priority}}</td>
-<td>{{c.status}}</td>
-<td>{{c.city}}</td>
-<td>
-  <img *ngIf="c.image" [src]="c.image" width="80">
-</td>
-<td>
-  <!-- {{c.assignedAgent?.name || 'Not Assigned'}} -->
-   <!-- {{c.assignedTo | json}} -->
-    
-  {{c.assignedTo?.name || 'Not Assigned'}}
-
-</td>
-<td>
-  <button (click)="viewReport(c._id)">
-  View Report
-</button>
-</td>
-<!-- ✅ FEEDBACK COLUMN -->
-<td>
-
-  <!-- 🔹 Show feedback -->
-  <div *ngIf="c.feedback?.rating" class="feedback-card">
-    ⭐ {{c.feedback.rating}} / 5
-    <div class="comment">{{c.feedback.comment}}</div>
   </div>
 
-  <!-- 🔹 No feedback -->
-  <div *ngIf="!c.feedback?.rating" class="no-feedback">
-    --Work is Not Done--
+  <!-- OPTIONAL: WELCOME / INFO -->
+  <div class="info-box">
+    <h3>Welcome Admin 👋</h3>
+    <p>
+      Manage complaints, users, and agents efficiently using the sidebar.
+    </p>
   </div>
 
-</td>
-</tr>
+</div>
+<div class="charts">
 
-</tbody>
+  <div class="chart-card">
+    <h3>Category Wise Complaints</h3>
+    <div class="chart-container">
+      <canvas id="complaintChart"></canvas>
+    </div>
+  </div>
 
-</table>
+  <div class="chart-card">
+    <h3>Status Wise</h3>
+    <div class="chart-container">
+      <canvas id="pieChart"></canvas>
+    </div>
+  </div>
 
-<p *ngIf="complaints.length===0">
-No complaints found
-</p>
+</div>

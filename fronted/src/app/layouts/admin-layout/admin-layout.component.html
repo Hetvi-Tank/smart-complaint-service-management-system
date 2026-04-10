@@ -1,60 +1,64 @@
 <div class="wrapper">
 
-  <!-- HEADER -->
+  <!-- TOP HEADER -->
   <header class="header">
-   <div class="logo-box" routerLink="/login">
-      <img src="assets/logo.png" alt="Logo" class="logo-img">
-     
+
+    <div class="logo-box">
+      <img src="assets/logo.png" class="logo-img">
     </div>
 
-    <nav>
+    <div class="user-menu" (click)="toggleMenu()">
+      <div class="user-icon">
+        {{ username.charAt(0).toUpperCase() }}
+      </div>
 
-<a routerLink="/admin/dashboard">Dashboard</a>
-<a routerLink="/admin/view-users">View Users</a>
-
-<a routerLink="/admin/create-agent">Create Agent</a>
-
-<a routerLink="/admin/view-agents">View All Agents</a>
-
-<a routerLink="/admin/all-complaints">All Complaints</a>
-
-<a routerLink="/admin/admin-leaves">View Leaves</a>
-
-
-
-<div class="user-menu" (click)="toggleMenu()">
-
-    <div class="user-icon">
-      {{ username.charAt(0).toUpperCase() }}
+      <div class="dropdown" *ngIf="menuOpen">
+        <p class="username">{{ username }}</p>
+        <a (click)="changePassword()">Change Password</a>
+        <a (click)="logout()" class="logout">Logout</a>
+      </div>
     </div>
 
-    <div class="dropdown" *ngIf="menuOpen">
-
-  <p class="username">{{ username }}</p>
-
-  <a (click)="changePassword()" class="menu-link">
-    Change Password
-  </a>
-
-  <a (click)="logout()" class="menu-link logout">
-    Logout
-  </a>
-
-</div>
-
-  </div>
-
-</nav>
   </header>
 
-  <!-- PAGE CONTENT -->
-   <div class="main-content">
-    <router-outlet></router-outlet>
-  </div>
+  <!-- BODY -->
+  <div class="body">
 
-  <!-- FOOTER -->
-  <footer class="footer">
-    © 2026 Complaint Management System | Admin
-  </footer>
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+
+      <ul>
+        <li routerLink="/admin/dashboard" routerLinkActive="active">
+          📊 <span>Dashboard</span>
+        </li>
+
+        <li routerLink="/admin/view-users" routerLinkActive="active">
+          👥 <span>Users</span>
+        </li>
+
+        <li routerLink="/admin/create-agent" routerLinkActive="active">
+          ➕ <span>Create Agent</span>
+        </li>
+
+        <li routerLink="/admin/view-agents" routerLinkActive="active">
+          🧑‍💼 <span>Agents</span>
+        </li>
+        <!-- ✅ New Leave Management Link -->
+        <li routerLink="/admin/admin-leaves" routerLinkActive="active">
+      📅 <span>Leave Requests</span>
+    </li>
+        <li routerLink="/admin/all-complaints" routerLinkActive="active">
+          📄 <span>Complaints</span>
+        </li>
+      </ul>
+
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+      <router-outlet></router-outlet>
+    </div>
+
+  </div>
 
 </div>

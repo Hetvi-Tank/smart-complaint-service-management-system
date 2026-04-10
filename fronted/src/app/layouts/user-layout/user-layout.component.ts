@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet, RouterLink,Router } from '@angular/router';
 
+
 @Component({
   selector: 'app-user-layout',
   standalone: true,
@@ -33,5 +34,9 @@ export class UserLayoutComponent {
     localStorage.clear();
     window.location.href = "/login";
   }
+
+  goToDashboard() {
+  this.router.navigate(['/user/dashboard']);
+}
 
 }

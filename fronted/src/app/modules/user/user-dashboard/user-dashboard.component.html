@@ -1,158 +1,134 @@
 <div class="dashboard-container">
 
-<!-- HEADER -->
+  <!-- HEADER -->
+  <div class="dashboard-header">
+    <h2>Welcome {{name}}</h2>
 
-<div class="dashboard-header">
-
-<h2>Welcome {{name}}</h2>
-
-<div class="header-actions">
-
-<a routerLink="/user/add" class="add-btn">
-+ Add Complaint
-</a>
-
-<!-- <button class="logout-btn" (click)="logout()">
-Logout
-</button> -->
-
-</div>
-
-</div>
-
-
-<!-- STATS CARDS -->
-
-<div class="stats-grid">
-
-<div class="stat-card total">
-<h3>Total Complaints</h3>
-<p>{{total}}</p>
-</div>
-
-<div class="stat-card pending">
-<h3>Pending</h3>
-<p>{{pending}}</p>
-</div>
-
-<div class="stat-card completed">
-<h3>Completed</h3>
-<p>{{completed}}</p>
-</div>
-
-</div>
-
-
-<!-- COMPLAINT TABLE -->
-
-<div class="table-wrapper">
-
-<h3>My Complaints</h3>
-
-<table *ngIf="complaints.length > 0">
-
-<thead>
-
-<tr>
-<th>Title</th>
-<th>Category</th>
-<th>Priority</th>
-<th>Status</th>
-<th>City</th>
-<th>Report</th>
-<th>Feedback</th>
-</tr>
-
-</thead>
-
-<tbody>
-
-<tr *ngFor="let c of complaints">
-
-<td>{{c.title}}</td>
-
-<td>{{c.category}}</td>
-
-<td>
-<span class="priority" [ngClass]="c.priority">
-{{c.priority}}
-</span>
-</td>
-
-<td>
-<span class="status" [ngClass]="c.status?.replace(' ','')">
-{{c.status}}
-</span>
-</td>
-
-<td>{{c.city || 'N/A'}}</td>
-<td>
-  <button 
-  class="view-btn"
-  *ngIf="c.status === 'in progress'|| 'complated'"
-  (click)="viewReport(c._id)">
-  View
-</button>
-</td>
-<td>
-<!-- ✅ COMPLETED & NOT GIVEN -->
-  <div *ngIf="c.status === 'Completed' && !c.feedback?.rating" class="feedback-box">
-
-    <select #rating class="feedback-select">
-      <option value="">⭐</option>
-      <option value="1">1 ⭐</option>
-      <option value="2">2 ⭐</option>
-      <option value="3">3 ⭐</option>
-      <option value="4">4 ⭐</option>
-      <option value="5">5 ⭐</option>
-    </select>
-
-    <input type="text" #comment placeholder="Write feedback..." class="feedback-input">
-
-    <button class="feedback-btn"
-      (click)="submitFeedback(c._id, rating.value, comment.value)">
-      ✔
-    </button>
-
+    <div class="header-actions">
+      <a routerLink="/user/add" class="add-btn">
+        + Add Complaint
+      </a>
+    </div>
   </div>
 
-  <!-- ✅ ALREADY SUBMITTED (PROPER DESIGN) -->
-  <div *ngIf="c.feedback?.rating" class="feedback-card">
-
-    <div class="stars">
-      ⭐ {{c.feedback.rating}} / 5
+  <!-- STATS -->
+  <div class="stats-grid">
+    <div class="stat-card total">
+      <h3>Total</h3>
+      <p>{{total}}</p>
     </div>
 
-    <div class="comment">
-      "{{c.feedback.comment}}"
+    <div class="stat-card pending">
+      <h3>Pending</h3>
+      <p>{{pending}}</p>
     </div>
 
+    <div class="stat-card completed">
+      <h3>Completed</h3>
+      <p>{{completed}}</p>
+    </div>
   </div>
 
-  <!-- ✅ NOT COMPLETED → DISABLED LOOK -->
-  <div *ngIf="c.status !== 'Completed'" class="feedback-disabled-box">
+  <!-- TABLE -->
+  <div class="table-wrapper">
 
-    <select disabled class="feedback-select disabled">
-      <option>⭐</option>
-    </select>
+    <h3>My Complaints</h3>
 
-    <input disabled type="text" placeholder="Complete first..." class="feedback-input disabled">
+    <table *ngIf="complaints.length > 0">
 
-    <button disabled class="feedback-btn disabled">
-      ✔
-    </button>
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Category</th>
+          <th>Priority</th>
+          <th>Status</th>
+          <th>City</th>
+          <th>Date</th>
+          <th>Report</th>
+          <th>Feedback</th>
+        </tr>
+      </thead>
 
-  </div></td>
-</tr>
+      <tbody>
 
-</tbody>
+        <tr *ngFor="let c of complaints">
 
-</table>
+          <td>{{c.title}}</td>
+          <td>{{c.category}}</td>
 
-<p *ngIf="complaints.length===0">
-No complaints found
-</p>
+          <td>
+            <span class="priority" [ngClass]="c.priority">
+              {{c.priority}}
+            </span>
+          </td>
 
-</div>
+          <td>
+            <span class="status" [ngClass]="c.status?.replace(' ','')">
+              {{c.status}}
+            </span>
+          </td>
+
+          <td>{{c.city}}</td>
+
+          <td>{{c.createdAt | date:'dd MMM yyyy'}}</td>
+
+          <!-- REPORT -->
+          <td class="center">
+            <button 
+              class="view-btn"
+              *ngIf="c.status === 'Assigned' || c.status === 'InProgress' || c.status === 'Completed'"
+              (click)="viewReport(c._id)">
+              View
+            </button>
+          </td>
+
+          <!-- 🔥 FEEDBACK FINAL -->
+          <td class="center">
+
+            <!-- GIVE -->
+            <div *ngIf="c.status === 'Completed' && !c.feedback?.rating" class="feedback-box">
+
+              <select #rating class="feedback-select">
+                <option value="">⭐</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+
+              <input type="text" #comment placeholder="Comment..." class="feedback-input">
+
+              <button class="feedback-btn"
+                (click)="submitFeedback(c._id, rating.value, comment.value)">
+                ✔
+              </button>
+
+            </div>
+
+            <!-- SHOW -->
+            <div *ngIf="c.feedback?.rating" class="feedback-card">
+              ⭐ {{c.feedback.rating}} / 5<br>
+              <small>{{c.feedback.comment}}</small>
+            </div>
+
+            <!-- DISABLED -->
+            <div *ngIf="c.status !== 'Completed'" class="feedback-disabled-box">
+              <input disabled placeholder="Complete first..." class="feedback-input">
+            </div>
+
+          </td>
+
+        </tr>
+
+      </tbody>
+
+    </table>
+
+    <p *ngIf="complaints.length === 0">
+      No complaints found
+    </p>
+
+  </div>
 
 </div>

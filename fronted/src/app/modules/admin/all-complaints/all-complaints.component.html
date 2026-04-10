@@ -100,7 +100,7 @@ View
 
 </select> -->
 
-<select 
+<!-- <select 
   (change)="assignAgent(c._id,$any($event.target).value)"
   [disabled]="c.status !== 'Pending'">
 
@@ -124,7 +124,43 @@ View
 
   </option>
 
-</select>
+</select> -->
+
+
+  <!-- ✅ IF COMPLETED → SHOW AGENT NAME -->
+  <span *ngIf="c.status === 'Completed'">
+    {{c.assignedTo?.name || 'Not Assigned'}}
+  </span>
+
+  <!-- ✅ IF NOT COMPLETED → SHOW DROPDOWN -->
+  <select 
+    *ngIf="c.status !== 'Completed'"
+    (change)="assignAgent(c._id,$any($event.target).value)"
+    [disabled]="c.status !== 'Pending'">
+
+    <option value="">Select Agent</option>
+
+    <option 
+      *ngFor="let a of getFilteredAgents(c)" 
+      [value]="a._id"
+      [disabled]="isAgentBusy(a._id) || a.status !== 'Available'">
+
+      {{a.name}} 
+      (
+        {{
+          a.status === 'Not Available' 
+            ? 'On Leave' 
+            : isAgentBusy(a._id) 
+              ? 'Busy' 
+              : 'Free'
+        }}
+      )
+
+    </option>
+
+  </select>
+
+
 
 </td>
 <td>

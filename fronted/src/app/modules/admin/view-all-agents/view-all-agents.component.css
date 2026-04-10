@@ -3,6 +3,7 @@
   font-family: 'Segoe UI', sans-serif;
   background: #f4f7fb;
   min-height: 100vh;
+  background: linear-gradient(135deg, #0f6fed, #986def,#267ff3);
 }
 
 .title {
@@ -10,7 +11,7 @@
   margin-bottom: 20px;
   font-size: 26px;
   font-weight: 700;
-  color: #1e293b;
+  color: #fafafa;
 }
 
 .table-container {
@@ -29,7 +30,7 @@ table {
 }
 
 th {
-  background: #2563eb;
+  background: #0c0c0c;
   color: white;
   padding: 12px;
   text-align: left;

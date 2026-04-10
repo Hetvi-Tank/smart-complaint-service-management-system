@@ -20,7 +20,21 @@ export class AgentLeaveComponent {
 
 constructor(private http: HttpClient) {}
 
-submitLeave(){
+// submitLeave(){
+
+//   const token = localStorage.getItem('token');
+
+//   this.http.post('http://localhost:5000/api/agents/apply-leave', this.leave, {
+//     headers: {
+//       Authorization: `Bearer ${token}`
+//     }
+//   }).subscribe((res:any)=>{
+//     alert(res.message);
+//   });
+
+// }
+
+submitLeave() {
 
   const token = localStorage.getItem('token');
 
@@ -28,8 +42,30 @@ submitLeave(){
     headers: {
       Authorization: `Bearer ${token}`
     }
-  }).subscribe((res:any)=>{
-    alert(res.message);
+  }).subscribe({
+    
+    // ✅ SUCCESS
+    next: (res: any) => {
+      alert("✅ " + res.message);
+
+      // form reset (optional but pro)
+      this.leave = {
+        reason: '',
+        description: '',
+        fromDate: '',
+        toDate: ''
+      };
+    },
+
+    // ❌ ERROR (IMPORTANT)
+    error: (err) => {
+      if (err.status === 400) {
+        alert("⚠️ " + err.error.message); // 🔥 your custom backend message
+      } else {
+        alert("❌ Something went wrong");
+      }
+    }
+
   });
 
 }

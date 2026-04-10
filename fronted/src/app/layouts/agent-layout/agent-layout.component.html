@@ -1,42 +1,58 @@
 <div class="wrapper">
 
-<header class="header">
+  <!-- HEADER -->
+  <header class="header">
 
-  <div class="logo-box">
-    <img src="/assets/logo.png" class="logo-img">
-  </div>
-
-  <nav>
-    <a routerLink="/agent/agent-leave"> Leaves</a>
-  </nav>
-  <div class="user-menu" (click)="toggleMenu()">
-
-    <div class="user-icon">
-      {{ username.charAt(0).toUpperCase() }}
+    <div class="logo-box">
+      <img src="/assets/logo.png" class="logo-img">
     </div>
 
-    <div class="dropdown" *ngIf="menuOpen">
+    <div class="user-menu" (click)="toggleMenu()">
+      <div class="user-icon">
+        {{ username.charAt(0).toUpperCase() }}
+      </div>
 
-  <p class="username">{{ username }}</p>
+      <div class="dropdown" *ngIf="menuOpen">
+        <p class="username">{{ username }}</p>
 
-  <a (click)="changePassword()" class="menu-link">
-    Change Password
-  </a>
+        <a (click)="changePassword()" class="menu-link">
+          Change Password
+        </a>
 
-  <a (click)="logout()" class="menu-link logout">
-    Logout
-  </a>
+        <a (click)="logout()" class="menu-link logout">
+          Logout
+        </a>
+      </div>
+    </div>
 
-</div>
+  </header>
+
+  <!-- BODY -->
+  <div class="body">
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+      <ul>
+
+        <li routerLink="/agent/dashboard" routerLinkActive="active">
+          📊 <span>Dashboard</span>
+        </li>
+
+        <li routerLink="/agent/agent-leave" routerLinkActive="active">
+          📅 <span>My Leaves</span>
+        </li>
+
+      </ul>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+      <router-outlet></router-outlet>
+    </div>
 
   </div>
 
-</header>
-
-<div class="main-content">
-  <router-outlet></router-outlet>
-</div>
-<!-- FOOTER -->
+  <!-- FOOTER -->
   <footer class="footer">
     © 2026 Complaint Management System | Agent
   </footer>

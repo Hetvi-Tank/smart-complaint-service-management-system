@@ -1,24 +1,21 @@
 const mongoose = require('mongoose');
 
 const leaveSchema = new mongoose.Schema({
-
   agent: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User"
+    ref: "User",
+    required: true
   },
-
-  reason: String,
+  reason: { type: String, required: true },
   description: String,
-
-  fromDate: Date,
-  toDate: Date,
-
+  fromDate: { type: Date, required: true },
+  toDate: { type: Date, required: true },
   status: {
     type: String,
-    enum: ["Pending", "Approved", "Rejected"],
-    default: "Pending"
-  }
-
+    enum: ["pending", "Approved", "Rejected"],   // ← small "pending"
+    default: "pending"
+  },
+  rejectionReason: String
 }, { timestamps: true });
 
 module.exports = mongoose.model("LeaveRequest", leaveSchema);
